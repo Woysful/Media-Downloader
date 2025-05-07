@@ -30,7 +30,6 @@ def main():
     video_format        = config.get("preferred_video_format", "mkv")
     audio_output_format = config.get("preferred_audio_format", "m4a")
     video_dwnld_param   = config.get("video download parameters", "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]")
-    #audio_output_codec  = config.get("preffered_audio_codec", "aac")
 
     # Getting link from clipboard
     url = pyperclip.paste().strip()
@@ -46,7 +45,6 @@ def main():
     elif mode == "video_best":
         command = ['yt-dlp', '-f', 'bestvideo+bestaudio/best', '-o', output_template, url]
     elif mode == "audio":
-        #command = ['yt-dlp', '-f', 'bestaudio', '-x', '--audio-format', audio_output_format, '--postprocessor-args', '-c:a '+audio_output_codec, '-o', output_template, url]
         command = ['yt-dlp', '-f', 'bestaudio', '-x', '--audio-format', audio_output_format, '-o', output_template, url]
     elif mode == "audio_best":
         command = ['yt-dlp', '-f', 'bestaudio', '-x', '--audio-format', 'wav', '-o', output_template, url]
