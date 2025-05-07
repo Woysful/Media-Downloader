@@ -14,5 +14,5 @@ How to install
 How to use
 First, copy the link to the media that yt-dlp supports. In the open FlowLauncher window, specify the keyword for Plugin Runner and a drop-down list will appear with options for downloading media. The program will use the link from the clipboard and download the media to the path specified in config.
 
-Why is this a separate program and not a plugin for FlowLauncher?
+# Why is this a separate program and not a plugin for FlowLauncher?
 I'm stupid and haven't figured out how to do that ᗜ˰ᗜ
