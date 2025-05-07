@@ -1,4 +1,4 @@
-This is a yt-dlp based program for downloading media.
+#This is a yt-dlp based program for downloading media.
 The program was created to work through FlowLauncher.
 
 How to install
