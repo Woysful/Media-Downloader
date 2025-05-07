@@ -1,0 +1,6 @@
+{
+  "download_directory": ".",
+  "preferred_video_format": "mkv",
+  "preferred_audio_format": "m4a",
+  "video download parameters": "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]"
+}
