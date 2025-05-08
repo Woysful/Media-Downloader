@@ -1,5 +1,5 @@
 {
-  "download_directory": "X:\.Downloads\AnyDownloader",
+  "download_directory": "X:\.Downloads\MediaDownloader",
   "preferred_video_format": "mkv",
   "preferred_audio_format": "m4a",
   "video_download_parameters": "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]"
