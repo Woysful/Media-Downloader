@@ -16,8 +16,6 @@ Basically this plugin creates for you 4 respodns:
 
 Also, you don't need to paste the link into the text field. Just copy the link and select the download mode. Plugin takes the link from the clipboard.
 
-### Issues
-I have no way to realize the work with plugin settings using yaml document. Unfortunately, to change the settings it is necessary to edit the `config.json` file in the plugin directory.
 ### Installation
 
 Download the source code or archive from the release tab and put the folder from the archive in the folder with the other plugins.
@@ -26,3 +24,6 @@ The usuall path to the plugins is:
 ``
 %appdata%\FlowLauncher\Plugins\
 ``
+
+### Issues
+I have no way to realize the work with plugin settings using yaml document. Unfortunately, to change the settings it is necessary to edit the `config.json` file in the plugin directory.
