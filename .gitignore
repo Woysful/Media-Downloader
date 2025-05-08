@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+lib.old/
 lib64/
 parts/
 sdist/
@@ -174,4 +174,5 @@ cython_debug/
 .pypirc
 
 #else
-icon.png
+SettingsTemplate.yaml
+images/logo.afphoto

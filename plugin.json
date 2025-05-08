@@ -1,0 +1,12 @@
+{
+  "ID": "com.yourname.downloaderplugin",
+  "ActionKeyword": "d",
+  "Name": "Media Downloader",
+  "Description": "yt-dlp based downloader",
+  "Author": "woysful",
+  "Version": "1.0.0",
+  "Language": "python",
+  "Website": "https://github.com/yourname/downloaderplugin",
+  "IcoPath": "Images\\icon.png",
+  "ExecuteFileName": "main.py"
+}
