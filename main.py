@@ -9,23 +9,7 @@ import subprocess, json, pyperclip
 from flowlauncher import FlowLauncher
 
 class DownloaderPlugin(FlowLauncher):
-    def query(self, query):
-        
-        def load_config(config_path="config.json"):
-            try:
-                with open(config_path, "r", encoding="utf-8") as f:
-                    config = json.load(f)
-                return config
-            except Exception as e:
-                return {}
-
-        config = load_config()
-
-        download_directory  = config.get("download_directory", ".")
-        video_format        = config.get("preferred_video_format", "mkv")
-        audio_output_format = config.get("preferred_audio_format", "m4a")
-        video_dwnld_param   = config.get("video download parameters", "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]")
-        
+    def query(self, query):   
         buttons = [
             {
                 "Title": "Video",
@@ -85,7 +69,7 @@ class DownloaderPlugin(FlowLauncher):
         video_format        = config.get("preferred_video_format", "mkv")
         audio_output_format = config.get("preferred_audio_format", "m4a")
         video_dwnld_param   = config.get("video download parameters", "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]")
-
+        
         url = pyperclip.paste().strip()
         if not url:
             sys.exit(1)
@@ -93,13 +77,13 @@ class DownloaderPlugin(FlowLauncher):
         output_template = os.path.join(download_directory, "%(title)s.%(ext)s")
 
         if mode == "video":
-            command = ['yt-dlp', '-f', video_dwnld_param, '-o', output_template, '--remux-video', video_format, '--embed-metadata', url]
+            command = ['yt-dlp.exe', '-f', video_dwnld_param, '-o', output_template, '--remux-video', video_format, '--embed-metadata', url]
         elif mode == "video_best":
-            command = ['yt-dlp', '-f', 'bestvideo+bestaudio/best', '-o', output_template, url]
+            command = ['yt-dlp.exe', '-f', 'bestvideo+bestaudio/best', '-o', output_template, url]
         elif mode == "audio":
-            command = ['yt-dlp', '-f', 'bestaudio', '-x', '--audio-format', audio_output_format, '-o', output_template, url]
+            command = ['yt-dlp.exe', '-f', 'bestaudio', '-x', '--audio-format', audio_output_format, '-o', output_template, url]
         elif mode == "audio_best":
-            command = ['yt-dlp', '-f', 'bestaudio', '-x', '--audio-format', 'wav', '-o', output_template, url]
+            command = ['yt-dlp.exe', '-f', 'bestaudio', '-x', '--audio-format', 'wav', '-o', output_template, url]
         else:
             sys.exit(1)
 
