@@ -3,7 +3,7 @@ A plugin that allows you to download any (yt-dlp supported services) video/audio
 
 I'm not a cool coder and made this for myself. But maybe it'll come in handy for you
 
-![](https://private-user-images.githubusercontent.com/50032205/441913861-1979d942-7017-4825-9969-c5c630c08edc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDY3NDY3ODcsIm5iZiI6MTc0Njc0NjQ4NywicGF0aCI6Ii81MDAzMjIwNS80NDE5MTM4NjEtMTk3OWQ5NDItNzAxNy00ODI1LTk5NjktYzVjNjMwYzA4ZWRjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA1MDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNTA4VDIzMjEyN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY1NWY3OTJhZDRmNDFjNjc5ZGIwNDdkOGMyMDU4Nzg0OWEzZjFjMGZkNjMxYjc3N2QxYTA2ZGQzOWM5MzJjNWYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.XbslgcGhP_NShWD-iv9uEdWISulM5ZTwGRrNC20nGoc)
+![](https://github.com/user-attachments/assets/94e6bd34-a6ea-4f0c-ac98-719dffc3d1f2)
 
 ### Features
 Basically this plugin creates for you 4 respodns:
