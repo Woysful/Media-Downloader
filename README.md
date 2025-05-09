@@ -22,10 +22,7 @@ Also, you don't need to paste the link into the text field. Just copy the link a
 
 Download the source code or archive from the release tab and put the folder from the archive in the folder with the other plugins.
 
-The usuall path to the plugins is:
-``
-%appdata%\FlowLauncher\Plugins\
-``
+The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 
 ## Issues
 I didn't figure out how to get user parameters correctly to use yaml document. Unfortunately, to change the settings it is necessary to edit the `config.json` file in the plugin directory.
