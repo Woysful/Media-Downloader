@@ -74,16 +74,17 @@ class DownloaderPlugin(FlowLauncher):
         if not url:
             sys.exit(1)
 
+        ytdlp_path      = '.\plugin\yt-dlp.exe'
         output_template = os.path.join(download_directory, "%(title)s.%(ext)s")
 
         if mode == "video":
-            command = ['yt-dlp.exe', '-f', video_dwnld_param, '-o', output_template, '--remux-video', video_format, '--embed-metadata', url]
+            command = [ytdlp_path, '-f', video_dwnld_param, '-o', output_template, '--remux-video', video_format, '--embed-metadata', url]
         elif mode == "video_best":
-            command = ['yt-dlp.exe', '-f', 'bestvideo+bestaudio/best', '-o', output_template, url]
+            command = [ytdlp_path, '-f', 'bestvideo+bestaudio/best', '-o', output_template, url]
         elif mode == "audio":
-            command = ['yt-dlp.exe', '-f', 'bestaudio', '-x', '--audio-format', audio_output_format, '-o', output_template, url]
+            command = [ytdlp_path, '-f', 'bestaudio', '-x', '--audio-format', audio_output_format, '-o', output_template, url]
         elif mode == "audio_best":
-            command = ['yt-dlp.exe', '-f', 'bestaudio', '-x', '--audio-format', 'wav', '-o', output_template, url]
+            command = [ytdlp_path, '-f', 'bestaudio', '-x', '--audio-format', 'wav', '-o', output_template, url]
         else:
             sys.exit(1)
 
