@@ -28,4 +28,4 @@ The usuall path to the plugins is:
 ``
 
 ### Issues
-I have no way to realize the work with plugin settings using yaml document. Unfortunately, to change the settings it is necessary to edit the `config.json` file in the plugin directory.
+I didn't figure out how to get user parameters correctly to use yaml document. Unfortunately, to change the settings it is necessary to edit the `config.json` file in the plugin directory.
