@@ -176,3 +176,4 @@ cython_debug/
 #else
 SettingsTemplate.yaml
 images/logo.afphoto
+images/logo.afphoto~lock~
