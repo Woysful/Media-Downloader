@@ -54,8 +54,8 @@ class DownloaderPlugin(FlowLauncher):
         ]
         return buttons
 
-    def run_downloader(self, mode):
-        run(mode)
+    def run_downloader(self, param):
+        run(param)
 
 if __name__ == "__main__":
     DownloaderPlugin()

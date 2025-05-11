@@ -8,7 +8,7 @@ def load_config(config_path="config.json"):
     except Exception as e:
         return {}
 
-def run(mode):
+def run(param):
 
     config = load_config()
 
@@ -24,7 +24,7 @@ def run(mode):
     ytdlp_path      = '.\plugin\yt-dlp.exe'
     output_template = os.path.join(download_directory, "%(title)s.%(ext)s")
 
-    match mode:
+    match param:
         case "video":
             command = [ytdlp_path, '-f', video_dwnld_param, '-o', output_template, '--remux-video', video_format, '--embed-metadata', url]
         case "video_best":
