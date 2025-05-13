@@ -3,7 +3,7 @@ A plugin that allows you to download any (yt-dlp supported services) video/audio
 
 I'm not a cool coder and made this for myself. But maybe it'll come in handy for you
 
-![](https://github.com/user-attachments/assets/94e6bd34-a6ea-4f0c-ac98-719dffc3d1f2)
+![](https://github.com/user-attachments/assets/1e47769f-95ee-4481-b449-9300bbdcf379)
 
 ## Features
 Basically this plugin creates for you 4 respodns:
@@ -20,7 +20,7 @@ Also, you don't need to paste the link into the text field. Just copy the link a
 
 ## Installation
 
-Download the source code or archive from the release tab and put the folder from the archive in the folder with the other plugins.
+[Download](https://github.com/Woysful/Media-Downloader/releases/latest/download/Media-Downloader.zip) the archive from the release tab or source code and place the folder from the archive in the folder with other plugins.
 
 The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 
