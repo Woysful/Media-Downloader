@@ -12,10 +12,10 @@ def run(param):
 
     config = load_config()
 
-    download_directory  = config.get("download_directory", ".")
+    download_directory  = config.get("download_directory", "%USERPROFILE%\Downloads")
     video_format        = config.get("preferred_video_format", "mkv")
     audio_output_format = config.get("preferred_audio_format", "m4a")
-    video_dwnld_param   = config.get("video download parameters", "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]")
+    video_dwnload_param = config.get("video download parameters", "bv[vcodec^=av01]+ba[ext=m4a]/bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]")
     
     url = pyperclip.paste().strip()
     if not url:
@@ -26,7 +26,7 @@ def run(param):
 
     match param:
         case "video":
-            command = [ytdlp_path, '-f', video_dwnld_param, '-o', output_template, '--remux-video', video_format, '--embed-metadata', url]
+            command = [ytdlp_path, '-f', video_dwnload_param, '--remux-video', video_format, '--embed-metadata', '-o', output_template, url]
         case "video_best":
             command = [ytdlp_path, '-f', 'bestvideo+bestaudio/best', '-o', output_template, url]
         case "audio":

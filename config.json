@@ -2,5 +2,5 @@
   "download_directory": "%USERPROFILE%\\Downloads",
   "preferred_video_format": "mkv",
   "preferred_audio_format": "m4a",
-  "video_download_parameters": "bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]"
+  "video_download_parameters": "bv[vcodec^=av01]+ba[ext=m4a]/bv[vcodec^=hev1]+ba[ext=m4a]/bv[vcodec^=avc1]+ba[ext=m4a]"
 }
