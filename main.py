@@ -15,7 +15,7 @@ class DownloaderPlugin(FlowLauncher):
                 "Title": "Video",
                 "SubTitle": "your parameters",
                 "IcoPath": "Images\\video.png",
-                "Score": 100,
+                "Score": 1000000,
                 "JsonRPCAction": {
                     "method": "run_downloader",
                     "parameters": ["video"],
@@ -26,7 +26,7 @@ class DownloaderPlugin(FlowLauncher):
                 "Title": "Video Best",
                 "SubTitle": "webm / vorbis / opus",
                 "IcoPath": "Images\\video_best.png",
-                "Score":75,
+                "Score":250000,
                 "JsonRPCAction": {
                     "method": "run_downloader",
                     "parameters": ["video_best"],
@@ -37,7 +37,7 @@ class DownloaderPlugin(FlowLauncher):
                 "Title": "Audio",
                 "SubTitle": "your parameters",
                 "IcoPath": "Images\\audio.png",
-                "Score":50,
+                "Score":750000,
                 "JsonRPCAction": {
                     "method": "run_downloader",
                     "parameters": ["audio"],
@@ -48,7 +48,7 @@ class DownloaderPlugin(FlowLauncher):
                 "Title": "Audio Best",
                 "SubTitle": "vorbis / opus --> wav",
                 "IcoPath": "Images\\audio_best.png",
-                "Score":25,
+                "Score":0,
                 "JsonRPCAction": {
                     "method": "run_downloader",
                     "parameters": ["audio_best"],
