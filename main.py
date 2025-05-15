@@ -8,59 +8,84 @@ sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 from flowlauncher import FlowLauncher
 from utils import run
 
-class DownloaderPlugin(FlowLauncher):
-    def query(self, query):   
-        buttons = [
-            {
-                "Title": "Video",
-                "SubTitle": "your parameters",
-                "IcoPath": "Images\\video.png",
-                "Score": 1000000,
-                "JsonRPCAction": {
-                    "method": "run_downloader",
-                    "parameters": ["video"],
-                    "dontHideAfterAction": False
-                }
-            },
-            {
-                "Title": "Video Best",
-                "SubTitle": "webm / vorbis / opus",
-                "IcoPath": "Images\\video_best.png",
-                "Score":250000,
-                "JsonRPCAction": {
-                    "method": "run_downloader",
-                    "parameters": ["video_best"],
-                    "dontHideAfterAction": False
-                }
-            },
-            {
-                "Title": "Audio",
-                "SubTitle": "your parameters",
-                "IcoPath": "Images\\audio.png",
-                "Score":750000,
-                "JsonRPCAction": {
-                    "method": "run_downloader",
-                    "parameters": ["audio"],
-                    "dontHideAfterAction": False
-                }
-            },
-            {
-                "Title": "Audio Best",
-                "SubTitle": "vorbis / opus --> wav",
-                "IcoPath": "Images\\audio_best.png",
-                "Score":0,
-                "JsonRPCAction": {
-                    "method": "run_downloader",
-                    "parameters": ["audio_best"],
-                    "dontHideAfterAction": False
-                }
-            }
-        ]
+import subprocess
+ffmpeg_path = '.\plugin\\ffmpeg.exe'
+ytdlp_path = '.\plugin\\yt-dlp.exe'
 
-        return buttons
+class DownloaderPlugin(FlowLauncher):
+    def query(self, query):
+        if not (os.path.isfile(ytdlp_path) and os.path.isfile(ffmpeg_path)):
+            installing = [
+                {
+                    "Title": "Press to install components",
+                    "SubTitle": "Download ffmpeg and yt-dlp (it could take some time)",
+                    "IcoPath": "Images\\icon.png",
+                    "JsonRPCAction": {
+                        "method": "install_components",
+                        "parameters": [],
+                        "dontHideAfterAction": True
+                    }
+                }
+            ]            
+            return installing
+        else:        
+            buttons = [
+                {
+                    "Title": "Video",
+                    "SubTitle": "your parameters",
+                    "IcoPath": "Images\\video.png",
+                    "Score": 1000000,
+                    "JsonRPCAction": {
+                        "method": "run_downloader",
+                        "parameters": ["video"],
+                        "dontHideAfterAction": False
+                    }
+                },
+                {
+                    "Title": "Video Best",
+                    "SubTitle": "webm / vorbis / opus",
+                    "IcoPath": "Images\\video_best.png",
+                    "Score":250000,
+                    "JsonRPCAction": {
+                        "method": "run_downloader",
+                        "parameters": ["video_best"],
+                        "dontHideAfterAction": False
+                    }
+                },
+                {
+                    "Title": "Audio",
+                    "SubTitle": "your parameters",
+                    "IcoPath": "Images\\audio.png",
+                    "Score":750000,
+                    "JsonRPCAction": {
+                        "method": "run_downloader",
+                        "parameters": ["audio"],
+                        "dontHideAfterAction": False
+                    }
+                },
+                {
+                    "Title": "Audio Best",
+                    "SubTitle": "vorbis / opus --> wav",
+                    "IcoPath": "Images\\audio_best.png",
+                    "Score":0,
+                    "JsonRPCAction": {
+                        "method": "run_downloader",
+                        "parameters": ["audio_best"],
+                        "dontHideAfterAction": False
+                    }
+                }
+            ]
+
+            return buttons
 
     def run_downloader(self, param):
         run(param)
+    
+    def install_components(self, *args):
+        try:
+            subprocess.Popen(['cmd.exe', '/k', f'python installer.py'],creationflags=subprocess.CREATE_NEW_CONSOLE)
+        except Exception as e:
+            sys.exit(1)
 
 if __name__ == "__main__":
     DownloaderPlugin()
