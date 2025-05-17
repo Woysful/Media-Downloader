@@ -1,8 +1,9 @@
 {
-  "Download directory"        : "%USERPROFILE%\\Downloads",
-  "Preferred video format"    : "mkv",
-  "Preferred audio format"    : "m4a",
-  "Default video parameters"  : "bv+ba/best",
+  "download_directory"        : "%USERPROFILE%\\Downloads",
+  "preferred_video_format"    : "mkv",
+  "preferred_audio_format"    : "m4a",
+  "default_video_parameters"  : "bv+ba/best",
+  "download_complete_sound"   : true,
 
   "domains" : {
     "youtube"   : {

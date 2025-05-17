@@ -8,18 +8,19 @@ sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 from flowlauncher import FlowLauncher
 from utils import run, config
 
-import subprocess, pyperclip
+import subprocess
 ffmpeg_path = '.\plugin\\ffmpeg.exe'
 ytdlp_path = '.\plugin\\yt-dlp.exe'
 
-class run_plugin(FlowLauncher):
+class media_downloader(FlowLauncher):
     def query(self, query):
         if not (os.path.isfile(ytdlp_path) and os.path.isfile(ffmpeg_path)):
             installing = [
                 {
                     "Title": "Press to install components",
-                    "SubTitle": "Download ffmpeg and yt-dlp (it could take some time)",
-                    "IcoPath": "Images\\icon.png",
+                    "SubTitle": "Download ffmpeg and yt-dlp | it could take some time",
+                    "IcoPath": "Images\\warning.png",
+                    "Score": 50000,
                     "JsonRPCAction": {
                         "method": "install_components",
                         "parameters": [],
@@ -29,7 +30,8 @@ class run_plugin(FlowLauncher):
                 {
                     "Title": "Settings",
                     "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\icon.png",
+                    "IcoPath": "Images\\config.png",
+                    "Score": 0,
                     "JsonRPCAction": {
                         "method": "open_config",
                         "parameters": [],
@@ -44,12 +46,14 @@ class run_plugin(FlowLauncher):
                 {
                     "Title": "Copy the link first!",
                     "SubTitle": "Your clipboard is empty, copy a link to media :3",
-                    "IcoPath": "Images\\icon.png",
+                    "IcoPath": "Images\\warning.png",
+                    "Score": 50000,
                 },
                 {
                     "Title": "Settings",
                     "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\icon.png",
+                    "IcoPath": "Images\\config.png",
+                    "Score": 0,
                     "JsonRPCAction": {
                         "method": "open_config",
                         "parameters": [],
@@ -63,13 +67,15 @@ class run_plugin(FlowLauncher):
             wrong_url = [
                 {
                     "Title": "No link detected :c",
-                    "SubTitle": "You have to copy the link first.",
-                    "IcoPath": "Images\\icon.png",
+                    "SubTitle": "You have to copy the link first",
+                    "IcoPath": "Images\\warning.png",
+                    "Score": 50000,
                 },
                 {
                     "Title": "Settings",
                     "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\icon.png",
+                    "IcoPath": "Images\\config.png",
+                    "Score": 0,
                     "JsonRPCAction": {
                         "method": "open_config",
                         "parameters": [],
@@ -83,7 +89,7 @@ class run_plugin(FlowLauncher):
             buttons = [
                 {
                     "Title": "Video",
-                    "SubTitle": "You set: " + config.vid_format,
+                    "SubTitle": config.vid_format + " | can be changed in the settings",
                     "IcoPath": "Images\\video.png",
                     "Score": 1000000,
                     "JsonRPCAction": {
@@ -96,7 +102,7 @@ class run_plugin(FlowLauncher):
                     "Title": "Video Best",
                     "SubTitle": "Best possible without conversion",
                     "IcoPath": "Images\\video_best.png",
-                    "Score":250000,
+                    "Score": 250000,
                     "JsonRPCAction": {
                         "method": "run_downloader",
                         "parameters": ["video_best"],
@@ -105,9 +111,9 @@ class run_plugin(FlowLauncher):
                 },
                 {
                     "Title": "Audio",
-                    "SubTitle": "You set: " + config.aud_format,
+                    "SubTitle": config.aud_format + " | can be changed in the settings",
                     "IcoPath": "Images\\audio.png",
-                    "Score":750000,
+                    "Score": 750000,
                     "JsonRPCAction": {
                         "method": "run_downloader",
                         "parameters": ["audio"],
@@ -118,7 +124,7 @@ class run_plugin(FlowLauncher):
                     "Title": "Audio Best",
                     "SubTitle": "Best possible -> WAV",
                     "IcoPath": "Images\\audio_best.png",
-                    "Score":50000,
+                    "Score": 50000,
                     "JsonRPCAction": {
                         "method": "run_downloader",
                         "parameters": ["audio_best"],
@@ -128,8 +134,8 @@ class run_plugin(FlowLauncher):
                 {
                     "Title": "Settings",
                     "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\icon.png",
-                    "Score":0,
+                    "IcoPath": "Images\\config.png",
+                    "Score": 0,
                     "JsonRPCAction": {
                         "method": "open_config",
                         "parameters": [],
@@ -153,4 +159,4 @@ class run_plugin(FlowLauncher):
 
 
 if __name__ == "__main__":
-    run_plugin()
+    media_downloader()
