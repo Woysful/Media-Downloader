@@ -6,13 +6,13 @@ sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
 from flowlauncher import FlowLauncher
-from utils import run
+from utils import run, config
 
-import subprocess
+import subprocess, pyperclip
 ffmpeg_path = '.\plugin\\ffmpeg.exe'
 ytdlp_path = '.\plugin\\yt-dlp.exe'
 
-class DownloaderPlugin(FlowLauncher):
+class run_plugin(FlowLauncher):
     def query(self, query):
         if not (os.path.isfile(ytdlp_path) and os.path.isfile(ffmpeg_path)):
             installing = [
@@ -25,14 +25,65 @@ class DownloaderPlugin(FlowLauncher):
                         "parameters": [],
                         "dontHideAfterAction": True
                     }
+                },
+                {
+                    "Title": "Settings",
+                    "SubTitle": "Open config.JSON",
+                    "IcoPath": "Images\\icon.png",
+                    "JsonRPCAction": {
+                        "method": "open_config",
+                        "parameters": [],
+                        "dontHideAfterAction": True
+                    }
                 }
             ]            
             return installing
+        
+        elif not config.url:
+            empty_clipboard = [
+                {
+                    "Title": "Copy the link first!",
+                    "SubTitle": "Your clipboard is empty, copy a link to media :3",
+                    "IcoPath": "Images\\icon.png",
+                },
+                {
+                    "Title": "Settings",
+                    "SubTitle": "Open config.JSON",
+                    "IcoPath": "Images\\icon.png",
+                    "JsonRPCAction": {
+                        "method": "open_config",
+                        "parameters": [],
+                        "dontHideAfterAction": True
+                    }
+                }
+            ]
+            return empty_clipboard
+        
+        elif not config.url_pattern.match(config.url):
+            wrong_url = [
+                {
+                    "Title": "No link detected :c",
+                    "SubTitle": "You have to copy the link first.",
+                    "IcoPath": "Images\\icon.png",
+                },
+                {
+                    "Title": "Settings",
+                    "SubTitle": "Open config.JSON",
+                    "IcoPath": "Images\\icon.png",
+                    "JsonRPCAction": {
+                        "method": "open_config",
+                        "parameters": [],
+                        "dontHideAfterAction": True
+                    }
+                }
+            ]
+            return wrong_url
+        
         else:        
             buttons = [
                 {
                     "Title": "Video",
-                    "SubTitle": "your parameters",
+                    "SubTitle": "You set: " + config.vid_format,
                     "IcoPath": "Images\\video.png",
                     "Score": 1000000,
                     "JsonRPCAction": {
@@ -43,7 +94,7 @@ class DownloaderPlugin(FlowLauncher):
                 },
                 {
                     "Title": "Video Best",
-                    "SubTitle": "webm / vorbis / opus",
+                    "SubTitle": "Best possible without conversion",
                     "IcoPath": "Images\\video_best.png",
                     "Score":250000,
                     "JsonRPCAction": {
@@ -54,7 +105,7 @@ class DownloaderPlugin(FlowLauncher):
                 },
                 {
                     "Title": "Audio",
-                    "SubTitle": "your parameters",
+                    "SubTitle": "You set: " + config.aud_format,
                     "IcoPath": "Images\\audio.png",
                     "Score":750000,
                     "JsonRPCAction": {
@@ -65,17 +116,27 @@ class DownloaderPlugin(FlowLauncher):
                 },
                 {
                     "Title": "Audio Best",
-                    "SubTitle": "vorbis / opus --> wav",
+                    "SubTitle": "Best possible -> WAV",
                     "IcoPath": "Images\\audio_best.png",
-                    "Score":0,
+                    "Score":50000,
                     "JsonRPCAction": {
                         "method": "run_downloader",
                         "parameters": ["audio_best"],
                         "dontHideAfterAction": False
                     }
+                },
+                {
+                    "Title": "Settings",
+                    "SubTitle": "Open config.JSON",
+                    "IcoPath": "Images\\icon.png",
+                    "Score":0,
+                    "JsonRPCAction": {
+                        "method": "open_config",
+                        "parameters": [],
+                        "dontHideAfterAction": True
+                    }
                 }
             ]
-
             return buttons
 
     def run_downloader(self, param):
@@ -86,6 +147,10 @@ class DownloaderPlugin(FlowLauncher):
             subprocess.Popen(['cmd.exe', '/k', f'python installer.py'],creationflags=subprocess.CREATE_NEW_CONSOLE)
         except Exception as e:
             sys.exit(1)
+    
+    def open_config(self):
+        os.startfile("config.json")
+
 
 if __name__ == "__main__":
-    DownloaderPlugin()
+    run_plugin()
