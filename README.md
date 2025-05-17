@@ -1,7 +1,7 @@
 ## yt-dlp based FlowLauncher plugin
 A plugin that allows you to download any (yt-dlp supported services) video/audio files
 
-I'm not a cool coder and made this for myself. But maybe it'll come in handy for you
+I'm not a good programmer and made this for myself. But maybe it'll come in handy for you
 
 ![](https://github.com/user-attachments/assets/1e47769f-95ee-4481-b449-9300bbdcf379)
 
