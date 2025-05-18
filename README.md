@@ -23,6 +23,3 @@ Also, you don't need to paste the link into the text field. Just copy the link a
 [Download](https://github.com/Woysful/Media-Downloader/releases/latest/download/Media-Downloader.zip) the archive from the release tab or source code and place the folder from the archive in the folder with other plugins.
 
 The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
-
-## Issues
-I didn't figure out how to get user parameters correctly to use yaml document. Unfortunately, to change the settings it is necessary to edit the `config.json` file in the plugin directory.
