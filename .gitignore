@@ -174,9 +174,10 @@ cython_debug/
 .pypirc
 
 #else
-SettingsTemplate.yaml
+#SettingsTemplate.yaml
 images/logo.afphoto
 images/logo.afphoto~lock~
 logs.txt
 plugin/ffmpeg.exe
 plugin/yt-dlp.exe
+config.json.bak

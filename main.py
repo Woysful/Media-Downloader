@@ -26,17 +26,6 @@ class media_downloader(FlowLauncher):
                         "parameters": [],
                         "dontHideAfterAction": True
                     }
-                },
-                {
-                    "Title": "Settings",
-                    "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\config.png",
-                    "Score": 0,
-                    "JsonRPCAction": {
-                        "method": "open_config",
-                        "parameters": [],
-                        "dontHideAfterAction": True
-                    }
                 }
             ]            
             return installing
@@ -50,7 +39,7 @@ class media_downloader(FlowLauncher):
                     "Score": 50000,
                 },
                 {
-                    "Title": "Settings",
+                    "Title": "Domain Settings",
                     "SubTitle": "Open config.JSON",
                     "IcoPath": "Images\\config.png",
                     "Score": 0,
@@ -72,7 +61,7 @@ class media_downloader(FlowLauncher):
                     "Score": 50000,
                 },
                 {
-                    "Title": "Settings",
+                    "Title": "Domain Settings",
                     "SubTitle": "Open config.JSON",
                     "IcoPath": "Images\\config.png",
                     "Score": 0,
@@ -132,7 +121,7 @@ class media_downloader(FlowLauncher):
                     }
                 },
                 {
-                    "Title": "Settings",
+                    "Title": "Domain Settings",
                     "SubTitle": "Open config.JSON",
                     "IcoPath": "Images\\config.png",
                     "Score": 0,

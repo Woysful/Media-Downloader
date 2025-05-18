@@ -10,6 +10,14 @@ class config():
             return config
         except Exception as e:
             return {}
+
+    def load_settings(settings_path = os.path.expandvars(r'%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json')):
+        try:
+            with open(settings_path, "r", encoding="utf-8") as f:
+                config = json.load(f)
+            return config
+        except Exception as e:
+            return {}
     
     # getting and validating URL from clipboard
     url = pyperclip.paste().strip()
@@ -24,13 +32,15 @@ class config():
         domain = extracted.domain
         return domain
     
-    config_full   = load_config()
+    config_full     = load_config()
+    settings_full   = load_settings()
     
-    output_path     = os.path.join(config_full.get("Download directory", "%USERPROFILE%\Downloads"), "%(title)s.%(ext)s")    
-    vid_format      = config_full.get("Preferred video format", "mkv")
-    aud_format      = config_full.get("Preferred audio format", "m4a")
-    vid_param_def   = config_full.get("Default video parameters", "bv+ba/best")
-    sound           = config_full.get("Download complete sound", True)
+    output_path     = os.path.join(settings_full.get("download_directory", "%USERPROFILE%\Downloads"), "%(title)s.%(ext)s")    
+    vid_format      = settings_full.get("preferred_video_format", "mkv")
+    aud_format      = settings_full.get("preferred_audio_format", "m4a")
+    vid_param_def   = settings_full.get("default_video_parameters", "bv+ba/best")
+    sound           = settings_full.get("download_complete_sound", True)
+    
     domains_conf    = config_full.get("domains", {})
     domain          = extract_domain(url)
     domain_param    = domains_conf.get(domain, {})
