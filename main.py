@@ -74,11 +74,11 @@ class media_downloader(FlowLauncher):
             ]
             return wrong_url
         
-        else:        
+        else:
             buttons = [
                 {
                     "Title": "Video",
-                    "SubTitle": config.vid_format + " | can be changed in the settings",
+                    "SubTitle": config.vid_format + " | " + config.domain_visual + config.vid_format_chk,
                     "IcoPath": "Images\\video.png",
                     "Score": 1000000,
                     "JsonRPCAction": {
@@ -89,7 +89,7 @@ class media_downloader(FlowLauncher):
                 },
                 {
                     "Title": "Video Best",
-                    "SubTitle": "Best possible without conversion",
+                    "SubTitle": "Best | No re-encoding",
                     "IcoPath": "Images\\video_best.png",
                     "Score": 250000,
                     "JsonRPCAction": {
@@ -100,7 +100,7 @@ class media_downloader(FlowLauncher):
                 },
                 {
                     "Title": "Audio",
-                    "SubTitle": config.aud_format + " | can be changed in the settings",
+                    "SubTitle": config.aud_format + " | " + config.domain_visual + config.aud_format_chk,
                     "IcoPath": "Images\\audio.png",
                     "Score": 750000,
                     "JsonRPCAction": {
@@ -111,7 +111,7 @@ class media_downloader(FlowLauncher):
                 },
                 {
                     "Title": "Audio Best",
-                    "SubTitle": "Best possible -> WAV",
+                    "SubTitle": "Best | Convert to WAV",
                     "IcoPath": "Images\\audio_best.png",
                     "Score": 50000,
                     "JsonRPCAction": {

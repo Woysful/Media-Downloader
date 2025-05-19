@@ -1,29 +1,25 @@
 {
-  "preferred_video_format"    : "mkv",
-  "preferred_audio_format"    : "m4a",
-  "default_video_parameters"  : "bv+ba/best",
-  "download_complete_sound"   : true,
+  "default video format"      : "mkv",
+  "default audio format"      : "m4a",
+  "default video parameters"  : "bv+ba/best",
+  "download complete sound"   : true,
 
   "domains" : {
     "youtube"   : {
       "yt-dlp parameters"   : "(bv[vcodec^=av01]/bv[ext=webm]/bv[vcodec^=avc1])+(ba[ext=m4a]/ba) / bv+ba",
-      "postprocessor args"  : ""
-    },
-    "youtu"     : {
-      "yt-dlp parameters"   : "(bv[vcodec^=av01]/bv[ext=webm]/bv[vcodec^=avc1])+(ba[ext=m4a]/ba) / bv+ba",
-      "postprocessor args"  : ""
+      "video format"        : "mkv",
+      "audio format"        : "m4a"
     },
     "instagram" : {
       "yt-dlp parameters"   : "bv+ba/best",
       "postprocessor args"  : "'-c:v copy -c:a aac'"
     },
     "x"         : {
-      "yt-dlp parameters"   : "bv+ba/best",
-      "postprocessor args"  : ""
+      "yt-dlp parameters"   : "bv+ba/best"
     },
     "bsky"      : {
       "yt-dlp parameters"   : "bv+ba/best",
-      "postprocessor args"  : ""
+      "video format"        : "mkv"
     }
   }
 }
