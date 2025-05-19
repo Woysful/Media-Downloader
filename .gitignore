@@ -178,6 +178,8 @@ cython_debug/
 SettingsTemplate.yaml.bak
 images/logo.afphoto
 images/logo.afphoto~lock~
+images/Preview.png
+images/Preview.afphoto
 logs.txt
 plugin/ffmpeg.exe
 plugin/yt-dlp.exe
