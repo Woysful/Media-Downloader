@@ -39,7 +39,7 @@ class media_downloader(FlowLauncher):
                     "Score": 50000,
                 },
                 {
-                    "Title": "Domain Settings",
+                    "Title": "Settings",
                     "SubTitle": "Open config.JSON",
                     "IcoPath": "Images\\config.png",
                     "Score": 0,
@@ -61,7 +61,7 @@ class media_downloader(FlowLauncher):
                     "Score": 50000,
                 },
                 {
-                    "Title": "Domain Settings",
+                    "Title": "Settings",
                     "SubTitle": "Open config.JSON",
                     "IcoPath": "Images\\config.png",
                     "Score": 0,
@@ -121,7 +121,7 @@ class media_downloader(FlowLauncher):
                     }
                 },
                 {
-                    "Title": "Domain Settings",
+                    "Title": "Settings",
                     "SubTitle": "Open config.JSON",
                     "IcoPath": "Images\\config.png",
                     "Score": 0,

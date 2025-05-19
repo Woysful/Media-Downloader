@@ -1,4 +1,9 @@
 {
+  "preferred_video_format"    : "mkv",
+  "preferred_audio_format"    : "m4a",
+  "default_video_parameters"  : "bv+ba/best",
+  "download_complete_sound"   : true,
+
   "domains" : {
     "youtube"   : {
       "yt-dlp parameters"   : "(bv[vcodec^=av01]/bv[ext=webm]/bv[vcodec^=avc1])+(ba[ext=m4a]/ba) / bv+ba",

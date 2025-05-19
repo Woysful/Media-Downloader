@@ -36,10 +36,10 @@ class config():
     settings_full   = load_settings()
     
     output_path     = os.path.join(settings_full.get("download_directory", "%USERPROFILE%\Downloads"), "%(title)s.%(ext)s")    
-    vid_format      = settings_full.get("preferred_video_format", "mkv")
-    aud_format      = settings_full.get("preferred_audio_format", "m4a")
-    vid_param_def   = settings_full.get("default_video_parameters", "bv+ba/best")
-    sound           = settings_full.get("download_complete_sound", True)
+    vid_format      = config_full.get("preferred_video_format", "mkv")
+    aud_format      = config_full.get("preferred_audio_format", "m4a")
+    vid_param_def   = config_full.get("default_video_parameters", "bv+ba/best")
+    sound           = config_full.get("download_complete_sound", True)
     
     domains_conf    = config_full.get("domains", {})
     domain          = extract_domain(url)

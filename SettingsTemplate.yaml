@@ -4,26 +4,3 @@ body:
       name: download_directory
       label: Download directory
       defaultValue: '%USERPROFILE%\Downloads'
-  - type: input
-    attributes:
-      name: preferred_video_format
-      label: Video format
-      description: For output container used argument --merge-output-format
-      defaultValue: mkv
-  - type: input
-    attributes:
-      name: preferred_audio_format
-      label: Audio format
-      defaultValue: m4a
-  - type: input
-    attributes:
-      name: default_video_parameters
-      label: Default yt-dlp parameters
-      description: Used for domains that are not listed in config.json
-      defaultValue: bv+ba/best
-  - type: checkbox
-    attributes:
-      name: download_complete_sound
-      label: Sound notification
-      description: Sound notify after downloading
-      defaultValue: 'false'

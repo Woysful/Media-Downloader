@@ -175,6 +175,7 @@ cython_debug/
 
 #else
 #SettingsTemplate.yaml
+SettingsTemplate.yaml.bak
 images/logo.afphoto
 images/logo.afphoto~lock~
 logs.txt
