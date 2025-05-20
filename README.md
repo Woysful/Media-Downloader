@@ -33,7 +33,7 @@ Among all the settings I've taken out only downloading path to UI, as it is usua
 
 ### How to use config
 To access the file, simply select Settings, which will open it in a text editor.
-The file contains default settings and settings for individual domains. The program will use the standard settings if the domain of the link you are trying to download the file from does not have unique settings in config.
+The file contains default settings and settings for individual domains. The program will use default settings if the domain of link you are trying to download file from does not have unique settings in config.
 The structure of domain settings is as follows:
 ```
 ...
