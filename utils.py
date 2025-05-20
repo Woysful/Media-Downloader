@@ -46,7 +46,7 @@ class config():
     domains_conf    = config_full.get("domains", {})
     domain          = extract_domain(url)
     
-    # edits domain to separate a good visual domain name for buttons
+    # edits domain to separate a hand-fixed good visual domain name for buttons
     # and a working one that just covers double domains like youtu.be and youtube.com
     def domain_edit(domain, rep):
         if domain in rep:
@@ -55,9 +55,10 @@ class config():
             return domain
     
     domain_visual_rep = {
-    "youtu": "youtube",
-    "x": "twitter",
-    "bsky": "bluesky"
+    "youtu"     : "YouTube",
+    "x"         : "Twitter",
+    "bsky"      : "Bluesky",
+    "tumblr"    : "Tumblr"
     }
 
     domain_visual = domain_edit(domain, domain_visual_rep)
@@ -77,13 +78,13 @@ class config():
 
     # check if this parameter written for this domain. made this for good visual on buttons
     def param_check(domain_param):
-        if domain_param == "":
+        if not domain_param:
             return " | Default settings"
         else:
             return ""
         
-    vid_format_chk  = param_check(domain_param.get("video format", ""))
-    aud_format_chk  = param_check(domain_param.get("audio format", ""))
+    vid_format_chk  = param_check(domain_param)
+    aud_format_chk  = param_check(domain_param)
 
     ytdlp_path  = '.\plugin\yt-dlp.exe'
 
