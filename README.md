@@ -6,7 +6,7 @@ I'm not a good programmer and made this for myself. But maybe it'll come in hand
 ![](https://github.com/user-attachments/assets/d0ba46bd-1b4f-44e0-8cf7-69cf368c57e8)
 
 ## Features
-Basically this plugin creates for you 4 respodns:
+Basically this plugin creates for you 5 buttons:
 
 - **[ Video ]** - Downloading video with configurable yt-dlp/ffmpeg parameters and containers. These parameters can be changed in the `config.json`
 
@@ -15,6 +15,8 @@ Basically this plugin creates for you 4 respodns:
 - **[ Audio ]** - Downloading audio with configurable format. This parameter can be changed in `config.json`
 
 - **[ Audio Best ]** - Downloading audio in best possible quality and converting to `wav`
+
+- **[ Settings ]** - Opens config.json
 
 Also, you don't need to paste the link into the text field. Just copy the link and select the download mode. Plugin takes the link from the clipboard.
 
