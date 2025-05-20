@@ -83,8 +83,8 @@ class config():
         else:
             return ""
         
-    vid_format_chk  = param_check(domain_param)
-    aud_format_chk  = param_check(domain_param)
+    vid_param_chk  = param_check(domain_param)
+    aud_param_chk  = param_check(domain_param)
 
     ytdlp_path  = '.\plugin\yt-dlp.exe'
 

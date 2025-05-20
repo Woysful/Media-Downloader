@@ -78,7 +78,7 @@ class media_downloader(FlowLauncher):
             buttons = [
                 {
                     "Title": "Video",
-                    "SubTitle": config.vid_format + " | " + config.domain_visual + config.vid_format_chk,
+                    "SubTitle": config.vid_format + " | " + config.domain_visual + config.vid_param_chk,
                     "IcoPath": "Images\\video.png",
                     "Score": 1000000,
                     "JsonRPCAction": {
@@ -100,7 +100,7 @@ class media_downloader(FlowLauncher):
                 },
                 {
                     "Title": "Audio",
-                    "SubTitle": config.aud_format + " | " + config.domain_visual + config.aud_format_chk,
+                    "SubTitle": config.aud_format + " | " + config.domain_visual + config.aud_param_chk,
                     "IcoPath": "Images\\audio.png",
                     "Score": 750000,
                     "JsonRPCAction": {
