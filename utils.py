@@ -143,4 +143,6 @@ def run(param):
             if config.sound == True:
                 winsound.PlaySound(r'.\sound\done.wav', winsound.SND_FILENAME)
     except subprocess.CalledProcessError as e:
+        if config.sound == True:
+            winsound.PlaySound(r'.\sound\warning.wav', winsound.SND_FILENAME)
         sys.exit(1)
