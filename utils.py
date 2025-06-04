@@ -1,4 +1,5 @@
 import sys, os, subprocess, pyperclip, json, tldextract, shlex, re, winsound
+from flowlauncher import FlowLauncher
 from datetime import datetime
 
 # getting config settings
@@ -101,10 +102,17 @@ def sound_msg(status):
                 winsound.PlaySound(r'.\sound\warning.wav', winsound.SND_FILENAME)
 
 # running the whole thing
-def run(param):
+def run(param, custom_format):
     if (not config.url) or (not config.url_pattern.match(config.url)):
         sound_msg(False)
     else:
+        if custom_format.replace(" ", "") != "":
+            match param:
+                case "video":
+                    config.vid_format = custom_format
+                case "audio":
+                    config.aud_format = custom_format
+
         # forming yt-dlp command based on button that user pressed
         match param:
             case "video":

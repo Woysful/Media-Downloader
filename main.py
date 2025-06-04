@@ -13,16 +13,16 @@ ffmpeg_path = '.\plugin\\ffmpeg.exe'
 ytdlp_path = '.\plugin\\yt-dlp.exe'
 
 class media_downloader(FlowLauncher):
-    def query(self, query):
+    def query(self, query: str):
         if not (os.path.isfile(ytdlp_path) and os.path.isfile(ffmpeg_path)):
             installing = [
                 {
-                    "Title": "Press to install components",
-                    "SubTitle": "Download ffmpeg and yt-dlp | it could take some time",
-                    "IcoPath": "Images\\warning.png",
-                    "Score": 50000,
+                    "Title"     : "Press to install components",
+                    "SubTitle"  : "Download ffmpeg and yt-dlp | it could take some time",
+                    "IcoPath"   : "Images\\warning.png",
+                    "Score"     : 50000,
                     "JsonRPCAction": {
-                        "method": "install_components",
+                        "method"    : "install_components",
                         "parameters": [],
                         "dontHideAfterAction": True
                     }
@@ -33,18 +33,18 @@ class media_downloader(FlowLauncher):
         elif not config.url:
             empty_clipboard = [
                 {
-                    "Title": "Copy the link first!",
-                    "SubTitle": "Your clipboard is empty, copy a link to media :3",
-                    "IcoPath": "Images\\warning.png",
-                    "Score": 50000,
+                    "Title"     : "Copy the link first!",
+                    "SubTitle"  : "Your clipboard is empty, copy a link to media :3",
+                    "IcoPath"   : "Images\\warning.png",
+                    "Score"     : 50000,
                 },
                 {
-                    "Title": "Settings",
-                    "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\config.png",
-                    "Score": 0,
+                    "Title"     : "Settings",
+                    "SubTitle"  : "Open config.JSON",
+                    "IcoPath"   : "Images\\config.png",
+                    "Score"     : 0,
                     "JsonRPCAction": {
-                        "method": "open_config",
+                        "method"    : "open_config",
                         "parameters": [],
                         "dontHideAfterAction": True
                     }
@@ -55,18 +55,18 @@ class media_downloader(FlowLauncher):
         elif not config.url_pattern.match(config.url):
             wrong_url = [
                 {
-                    "Title": "No link detected :c",
-                    "SubTitle": "You have to copy the link first",
-                    "IcoPath": "Images\\warning.png",
-                    "Score": 50000,
+                    "Title"     : "No link detected :c",
+                    "SubTitle"  : "You have to copy the link first",
+                    "IcoPath"   : "Images\\warning.png",
+                    "Score"     : 50000,
                 },
                 {
-                    "Title": "Settings",
-                    "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\config.png",
-                    "Score": 0,
+                    "Title"     : "Settings",
+                    "SubTitle"  : "Open config.JSON",
+                    "IcoPath"   : "Images\\config.png",
+                    "Score"     : 0,
                     "JsonRPCAction": {
-                        "method": "open_config",
+                        "method"    : "open_config",
                         "parameters": [],
                         "dontHideAfterAction": True
                     }
@@ -77,56 +77,56 @@ class media_downloader(FlowLauncher):
         else:
             buttons = [
                 {
-                    "Title": "Video",
-                    "SubTitle": config.vid_format + " | " + config.domain_visual + config.vid_param_chk,
-                    "IcoPath": "Images\\video.png",
-                    "Score": 1000000,
+                    "Title"     : "Video",
+                    "SubTitle"  : config.vid_format + " | " + config.domain_visual + config.vid_param_chk,
+                    "IcoPath"   : "Images\\video.png",
+                    "Score"     : 1000000,
                     "JsonRPCAction": {
-                        "method": "run_downloader",
-                        "parameters": ["video"],
+                        "method"    : "run_downloader",
+                        "parameters": ["video", query],
                         "dontHideAfterAction": False
                     }
                 },
                 {
-                    "Title": "Video Best",
-                    "SubTitle": "Best | No re-encoding",
-                    "IcoPath": "Images\\video_best.png",
-                    "Score": 250000,
+                    "Title"     : "Video Best",
+                    "SubTitle"  : "Best | No re-encoding",
+                    "IcoPath"   : "Images\\video_best.png",
+                    "Score"     : 250000,
                     "JsonRPCAction": {
-                        "method": "run_downloader",
+                        "method"    : "run_downloader",
                         "parameters": ["video_best"],
                         "dontHideAfterAction": False
                     }
                 },
                 {
-                    "Title": "Audio",
-                    "SubTitle": config.aud_format + " | " + config.domain_visual + config.aud_param_chk,
-                    "IcoPath": "Images\\audio.png",
-                    "Score": 750000,
+                    "Title"     : "Audio",
+                    "SubTitle"  : config.aud_format + " | " + config.domain_visual + config.aud_param_chk,
+                    "IcoPath"   : "Images\\audio.png",
+                    "Score"     : 750000,
                     "JsonRPCAction": {
-                        "method": "run_downloader",
-                        "parameters": ["audio"],
+                        "method"    : "run_downloader",
+                        "parameters": ["audio", query],
                         "dontHideAfterAction": False
                     }
                 },
                 {
-                    "Title": "Audio Best",
-                    "SubTitle": "Best | Convert to WAV",
-                    "IcoPath": "Images\\audio_best.png",
-                    "Score": 50000,
+                    "Title"     : "Audio Best",
+                    "SubTitle"  : "Best | Convert to WAV",
+                    "IcoPath"   : "Images\\audio_best.png",
+                    "Score"     : 50000,
                     "JsonRPCAction": {
-                        "method": "run_downloader",
+                        "method"    : "run_downloader",
                         "parameters": ["audio_best"],
                         "dontHideAfterAction": False
                     }
                 },
                 {
-                    "Title": "Settings",
-                    "SubTitle": "Open config.JSON",
-                    "IcoPath": "Images\\config.png",
-                    "Score": 0,
+                    "Title"     : "Settings",
+                    "SubTitle"  : "Open config.JSON",
+                    "IcoPath"   : "Images\\config.png",
+                    "Score"     : 0,
                     "JsonRPCAction": {
-                        "method": "open_config",
+                        "method"    : "open_config",
                         "parameters": [],
                         "dontHideAfterAction": True
                     }
@@ -134,8 +134,8 @@ class media_downloader(FlowLauncher):
             ]
             return buttons
 
-    def run_downloader(self, param):
-        run(param)
+    def run_downloader(self, param, custom_format):
+        run(param, custom_format)
     
     def install_components(self, *args):
         try:
