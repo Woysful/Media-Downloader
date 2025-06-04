@@ -144,7 +144,7 @@ class media_downloader(FlowLauncher):
             sys.exit(1)
     
     def open_config(self):
-        os.startfile("config.json")
+        os.startfile(".\plugin\config.json")
 
 
 if __name__ == "__main__":
