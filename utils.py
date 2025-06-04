@@ -58,7 +58,10 @@ class config():
     "youtu"     : "YouTube",
     "x"         : "Twitter",
     "bsky"      : "Bluesky",
-    "tumblr"    : "Tumblr"
+    "tumblr"    : "Tumblr",
+    "instagram" : "Instagram",
+    "vimeo"     : "Vimeo",
+    "tiktok"    : "Tiktok"
     }
 
     domain_visual = domain_edit(domain, domain_visual_rep)
@@ -83,66 +86,78 @@ class config():
         else:
             return ""
         
-    vid_param_chk  = param_check(domain_param)
-    aud_param_chk  = param_check(domain_param)
+    vid_param_chk   = param_check(domain_param)
+    aud_param_chk   = param_check(domain_param)
 
-    ytdlp_path  = '.\plugin\yt-dlp.exe'
+    ytdlp_path      = '.\plugin\yt-dlp.exe'
+
+# notification sound
+def sound_msg(status):
+    if config.sound == True:
+        match status:
+            case True:        
+                winsound.PlaySound(r'.\sound\done.wav', winsound.SND_FILENAME)
+            case False:
+                winsound.PlaySound(r'.\sound\warning.wav', winsound.SND_FILENAME)
 
 # running the whole thing
-def run(param):    
-    # forming yt-dlp command based on button that user pressed
-    match param:
-        case "video":
-            command = [config.ytdlp_path, config.url,
-                       '-o', config.output_path,
-                       '-f', config.vid_param,
-                       '--merge-output-format', config.vid_format,
-                       '--embed-metadata']
-        case "video_best":
-            command = [config.ytdlp_path, config.url, '-o', config.output_path,
-                       '-f', 'bestvideo+bestaudio/best']
-        case "audio":
-            command = [config.ytdlp_path, config.url, '-o', config.output_path,
-                       '-f', 'bestaudio',
-                       '-x', '--audio-format', config.aud_format]
-        case "audio_best":
-            command = [config.ytdlp_path, config.url, '-o', config.output_path,
-                       '-f', 'bestaudio',
-                       '-x', '--audio-format', 'wav']
-        case _:
+def run(param):
+    if (not config.url) or (not config.url_pattern.match(config.url)):
+        sound_msg(False)
+    else:
+        # forming yt-dlp command based on button that user pressed
+        match param:
+            case "video":
+                command = [config.ytdlp_path, config.url,
+                        '-o', config.output_path,
+                        '-f', config.vid_param,
+                        '--merge-output-format', config.vid_format,
+                        '--embed-metadata']
+            case "video_best":
+                command = [config.ytdlp_path, config.url, '-o', config.output_path,
+                        '-f', 'bestvideo+bestaudio/best']
+            case "audio":
+                command = [config.ytdlp_path, config.url, '-o', config.output_path,
+                        '-f', 'bestaudio',
+                        '-x', '--audio-format', config.aud_format]
+            case "audio_best":
+                command = [config.ytdlp_path, config.url, '-o', config.output_path,
+                        '-f', 'bestaudio',
+                        '-x', '--audio-format', 'wav']
+            case _:
+                sys.exit(1)
+
+        # if this domain has postprocessor arguments in config
+        try:
+            if config.arg_param:
+                command = [config.ytdlp_path,
+                        '-f', config.vid_param,
+                        '--merge-output-format', config.vid_format,                       
+                        '--postprocessor-args'] + shlex.split(config.arg_param) + [
+                            '-o', config.output_path, 
+                            '--embed-metadata',
+                            config.url]
+
+                with open("logs.txt", "a", encoding="utf-8") as f:
+                    f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+                    f.write("\nDomain: " + config.domain)
+                    f.write("\nLink: " + config.url)
+                    f.write("\nCommand with args: " + str(command) + "\n")
+
+                subprocess.run(command, check=True)
+                if config.sound == True:
+                    sound_msg(True)
+            else:
+                with open("logs.txt", "a", encoding="utf-8") as f:
+                    f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+                    f.write("\nDomain: " + config.domain)
+                    f.write("\nLink: " + config.url)
+                    f.write("\nCommand: " + str(command) + "\n")
+
+                subprocess.run(command, check=True)
+                if config.sound == True:
+                    sound_msg(True)
+        except subprocess.CalledProcessError as e:
+            if config.sound == True:
+                sound_msg(False)
             sys.exit(1)
-
-    # if this domain has postprocessor arguments in config
-    try:
-        if config.arg_param:
-            command = [config.ytdlp_path,
-                       '-f', config.vid_param,
-                       '--merge-output-format', config.vid_format,                       
-                       '--postprocessor-args'] + shlex.split(config.arg_param) + [
-                        '-o', config.output_path, 
-                        '--embed-metadata',
-                        config.url]
-
-            with open("logs.txt", "a", encoding="utf-8") as f:
-                f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-                f.write("\nDomain: " + config.domain)
-                f.write("\nLink: " + config.url)
-                f.write("\nCommand with args: " + str(command) + "\n")
-
-            subprocess.run(command, check=True)
-            if config.sound == True:
-                winsound.PlaySound(r'.\sound\done.wav', winsound.SND_FILENAME)
-        else:
-            with open("logs.txt", "a", encoding="utf-8") as f:
-                f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-                f.write("\nDomain: " + config.domain)
-                f.write("\nLink: " + config.url)
-                f.write("\nCommand: " + str(command) + "\n")
-
-            subprocess.run(command, check=True)
-            if config.sound == True:
-                winsound.PlaySound(r'.\sound\done.wav', winsound.SND_FILENAME)
-    except subprocess.CalledProcessError as e:
-        if config.sound == True:
-            winsound.PlaySound(r'.\sound\warning.wav', winsound.SND_FILENAME)
-        sys.exit(1)
