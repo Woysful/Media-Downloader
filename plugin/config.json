@@ -1,9 +1,4 @@
 {
-  "default video format"      : "mkv",
-  "default audio format"      : "m4a",
-  "default video parameters"  : "bv+ba/best",
-  "download complete sound"   : true,
-
   "domains" : {
     "youtube"   : {
       "yt-dlp parameters"   : "(bv[vcodec^=av01]/bv[ext=webm]/bv[vcodec^=avc1])+(ba[ext=m4a]/ba) / bv+ba",
@@ -11,15 +6,7 @@
       "audio format"        : "m4a"
     },
     "instagram" : {
-      "yt-dlp parameters"   : "bv+ba/best",
       "postprocessor args"  : "'-c:v copy -c:a aac'"
-    },
-    "x"         : {
-      "yt-dlp parameters"   : "bv+ba/best"
-    },
-    "bsky"      : {
-      "yt-dlp parameters"   : "bv+ba/best",
-      "video format"        : "mkv"
     }
   }
 }

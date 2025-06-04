@@ -39,7 +39,7 @@ class media_downloader(FlowLauncher):
                     "Score"     : 50000,
                 },
                 {
-                    "Title"     : "Settings",
+                    "Title"     : "Domain Settings",
                     "SubTitle"  : "Open config.JSON",
                     "IcoPath"   : "Images\\config.png",
                     "Score"     : 0,

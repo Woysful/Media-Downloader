@@ -13,7 +13,7 @@ class config():
         except Exception as e:
             return {}
 
-    # native flow launcher settings file. For now contains only downloading path
+    # native flow launcher settings file
     def load_settings(settings_path = os.path.expandvars(r'%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json')):
         try:
             with open(settings_path, "r", encoding="utf-8") as f:
@@ -39,10 +39,10 @@ class config():
     settings_full   = load_settings()
     
     output_path     = os.path.join(settings_full.get("download_directory", "%USERPROFILE%\Downloads"), "%(title)s.%(ext)s")    
-    vid_format_def  = config_full.get("default video format", "mkv")
-    aud_format_def  = config_full.get("default audio format", "m4a")
-    vid_param_def   = config_full.get("default video parameters", "bv+ba/best")
-    sound           = config_full.get("download complete sound", True)
+    vid_format_def  = settings_full.get("default_video_format", "mkv")
+    aud_format_def  = settings_full.get("default_audio_format", "m4a")
+    vid_param_def   = settings_full.get("default_video_parameters", "bv+ba/best")
+    sound           = settings_full.get("download_complete_sound", True)
     
     domains_conf    = config_full.get("domains", {})
     domain          = extract_domain(url)
