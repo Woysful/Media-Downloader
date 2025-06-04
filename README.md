@@ -28,12 +28,12 @@ The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 ## Config settings
 To answer the first question: “why do I need to edit a text file instead of settings inside Flow Launcher?”.
 Because I have no idea how to create items list in FL UI plugin settings, I didn't find such an option in the documentation.
-And secondly because at the moment it is necessary to restart Flow Launcher to save settings, and also there is a bug, because of which settings from settings.json file are not loaded into FL UI.
+And secondly because at the moment it is necessary to restart Flow Launcher to save settings. Also there is a bug, because of which settings from settings.json file are not loaded into FL UI.
 Among all the settings I've taken out only downloading path to UI, as it is usually the path is specified once and it's more convenient.
 
 ### How to use config
 To access the file, simply select Settings, which will open it in a text editor.
-The file contains default settings and settings for individual domains. The program will use the standard settings if the domain of the link you are trying to download the file from does not have unique settings in config.
+The file contains default settings and settings for individual domains. The program will use default settings if the domain of link you are trying to download file from does not have unique settings in config.
 The structure of domain settings is as follows:
 ```
 ...
@@ -50,5 +50,5 @@ The structure of domain settings is as follows:
 | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | yt-dlp parameters   | yt-dlp download parameters that come after the `-f` key. For example `"bestvideo+bestaudio/best"`                                                                                                                                           |
 | postprocessor args  | Parameters that are passed to ffmpeg. For example `"'-c:v libx265 -c:a aac '"`. **Warning!** It is strictly necessary to specify parameters in double and single quotes as in the example.                                                  |
-| video format        | The container into which the program will attempt to place the video stream. For example `"mkv"`. Inside the program `--merge-output-format` is used to define the container. Pay close attention to the codec and container compatibility. |
+| video format        | The container into which the program will attempt to place the video stream. For example `"mkv"`. Inside the program `--merge-output-format` is used to define the container. Pay close attention to the codec and container compatibility, or use postprocessor args to re-encode video stream |
 | audio format        | Audio file format into which the downloaded audio stream will be converted                                                                                                                                                                  |
