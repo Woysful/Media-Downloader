@@ -39,5 +39,5 @@ if __name__ == "__main__":
     print("Downloading ffmpeg...")
     install_ffmpeg()
     print("\nComplete!")
-    print("\nYou can close this window and use this plugin!")
+    print("\nYou can now close this window and continue using the plugin")
     print("\nHave a great day :3")

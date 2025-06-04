@@ -5,7 +5,7 @@ from datetime import datetime
 # getting config settings
 class config():
     # config in plugin's folder that has most of the settings
-    def load_config(config_path="config.json"):
+    def load_config(config_path=".\plugin\config.json"):
         try:
             with open(config_path, "r", encoding="utf-8") as f:
                 config = json.load(f)
@@ -146,7 +146,7 @@ def run(param, custom_format):
                             '--embed-metadata',
                             config.url]
 
-                with open("logs.txt", "a", encoding="utf-8") as f:
+                with open(".\plugin\logs.txt", "a", encoding="utf-8") as f:
                     f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
                     f.write("\nDomain: " + config.domain)
                     f.write("\nLink: " + config.url)
@@ -156,7 +156,7 @@ def run(param, custom_format):
                 if config.sound == True:
                     sound_msg(True)
             else:
-                with open("logs.txt", "a", encoding="utf-8") as f:
+                with open(".\plugin\logs.txt", "a", encoding="utf-8") as f:
                     f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
                     f.write("\nDomain: " + config.domain)
                     f.write("\nLink: " + config.url)
