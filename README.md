@@ -8,15 +8,25 @@ I'm not a good programmer and made this for myself. But maybe it'll come in hand
 ## Features
 Basically this plugin creates for you 5 buttons:
 
-- **[ Video ]** - Downloading video with configurable yt-dlp/ffmpeg parameters and containers. These parameters can be changed in the `config.json`
+- **[ Video ]** - Downloading video with configurable yt-dlp/ffmpeg parameters and containers
 
 - **[ Video Best ]**  - Downloading video in best possible quality no matter what codec/container it uses
 
-- **[ Audio ]** - Downloading audio with configurable format. This parameter can be changed in `config.json`
+- **[ Audio ]** - Downloading audio with configurable format
 
 - **[ Audio Best ]** - Downloading audio in best possible quality and converting to `wav`
 
-- **[ Settings ]** - Opens config.json
+- **[ Domain Settings ]** - Opens config.json
+
+The program has two settings files:
+The first is a file with settings that the user specifies within Flow Launcher.
+These settings include: `download path`, `default video/audio formats`, `default download command`, and the ability to disable `notification sounds`.
+`Default format` settings and `download commands` are the settings that are used if the user has not specified individual settings for a particular domain.
+
+Individual settings are specified for each separate domain, if necessary. This can be done in the `config.json` file, which can be opened by selecting `Domain Settings`.
+The settings that can be used are described below in the **Config settings** section.
+
+In addition to these settings, the user can also enter the desired format in the query string. This works exclusively with the `Video` and `Audio` items.
 
 Also, you don't need to paste the link into the text field. Just copy the link and select the download mode. Plugin takes the link from the clipboard.
 
