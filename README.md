@@ -38,8 +38,6 @@ The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 ## Config settings
 To answer the first question: “why do I need to edit a text file instead of settings inside Flow Launcher?”.
 Because I have no idea how to create items list in FL UI plugin settings, I didn't find such an option in the documentation.
-And secondly because at the moment it is necessary to restart Flow Launcher to save settings. Also there is a bug, because of which settings from settings.json file are not loaded into FL UI.
-Among all the settings I've taken out only downloading path to UI, as it is usually the path is specified once and it's more convenient.
 
 ### How to use config
 To access the file, simply select Settings, which will open it in a text editor.
