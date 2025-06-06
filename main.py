@@ -6,7 +6,7 @@ sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
 from flowlauncher       import FlowLauncher
-from plugin.utils       import run_d, parse_args
+from plugin.utils       import run_d, query_keys
 from plugin.settings    import Cfg
 from subprocess         import Popen, CREATE_NEW_CONSOLE
 
@@ -148,18 +148,18 @@ class media_downloader(FlowLauncher):
         run_d(param, query, config)
     
     def install_components(self, query, *args):
-        parse_args(query, config)
+        query_keys(query, config)
         try:
             Popen(['cmd.exe', '/k', f'python .\plugin\installer.py'],creationflags=CREATE_NEW_CONSOLE)
         except:
             sys.exit(1)
     
     def open_config(self, query):
-        parse_args(query, config)
+        query_keys(query, config)
         os.startfile(config.config_path)
 
     def args(self, query):
-        parse_args(query, config)
+        query_keys(query, config)
 
 
 if __name__ == "__main__":

@@ -16,8 +16,8 @@ def sound_msg(status, config: Cfg):
             case False:
                 PlaySound(r'.\sound\warning.wav', SND_FILENAME)                
 
-# parsing keys
-def parse_args(query, config: Cfg):
+# parsing keys from query field
+def query_keys(query, config: Cfg):
     pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
 
     args = {}
@@ -49,8 +49,7 @@ def run_d(param, query, config: Cfg):
     if (not config.url) or (not config.url_pattern.match(config.url)):
         sound_msg(False, config)
     else:
-        # query_keys = parse_args(query)
-        parse_args(query, config)
+        query_keys(query, config)
 
         # forming yt-dlp command based on button that user pressed
         match param:
