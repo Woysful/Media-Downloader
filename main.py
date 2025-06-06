@@ -5,17 +5,17 @@ sys.path.append(parent_folder_path)
 sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
-from flowlauncher import FlowLauncher
-from plugin.utils import run, config
+from flowlauncher       import FlowLauncher
+from plugin.utils       import run_m, parse_args
+from plugin.settings    import cfg
+from subprocess         import Popen, CREATE_NEW_CONSOLE
 
-import subprocess
-ffmpeg_path = '.\plugin\\ffmpeg.exe'
-ytdlp_path = '.\plugin\\yt-dlp.exe'
+config = cfg()
 
 class media_downloader(FlowLauncher):
     def query(self, query: str):
-        if not (os.path.isfile(ytdlp_path) and os.path.isfile(ffmpeg_path)):
-            installing = [
+        if not (os.path.isfile(config.ytdlp_path) and os.path.isfile(config.ffmpeg_path)):
+            return [
                 {
                     "Title"     : "Press to install components",
                     "SubTitle"  : "Download ffmpeg and yt-dlp | it could take some time",
@@ -23,20 +23,24 @@ class media_downloader(FlowLauncher):
                     "Score"     : 50000,
                     "JsonRPCAction": {
                         "method"    : "install_components",
-                        "parameters": [],
+                        "parameters": [query],
                         "dontHideAfterAction": True
                     }
                 }
             ]            
-            return installing
         
         elif not config.url:
-            empty_clipboard = [
+            return [
                 {
                     "Title"     : "Copy the link first!",
                     "SubTitle"  : "Your clipboard is empty, copy a link to media :3",
                     "IcoPath"   : "Images\\warning.png",
                     "Score"     : 50000,
+                    "JsonRPCAction": {
+                        "method"    : "args",
+                        "parameters": [query],
+                        "dontHideAfterAction": True
+                    }
                 },
                 {
                     "Title"     : "Domain Settings",
@@ -45,20 +49,24 @@ class media_downloader(FlowLauncher):
                     "Score"     : 0,
                     "JsonRPCAction": {
                         "method"    : "open_config",
-                        "parameters": [],
+                        "parameters": [query],
                         "dontHideAfterAction": True
                     }
                 }
             ]
-            return empty_clipboard
         
         elif not config.url_pattern.match(config.url):
-            wrong_url = [
+            return [
                 {
                     "Title"     : "No link detected :c",
                     "SubTitle"  : "You have to copy the link first",
                     "IcoPath"   : "Images\\warning.png",
                     "Score"     : 50000,
+                    "JsonRPCAction": {
+                        "method"    : "args",
+                        "parameters": [query],
+                        "dontHideAfterAction": True
+                    }
                 },
                 {
                     "Title"     : "Domain Settings",
@@ -67,15 +75,14 @@ class media_downloader(FlowLauncher):
                     "Score"     : 0,
                     "JsonRPCAction": {
                         "method"    : "open_config",
-                        "parameters": [],
+                        "parameters": [query],
                         "dontHideAfterAction": True
                     }
                 }
             ]
-            return wrong_url
         
         else:
-            buttons = [
+            return [
                 {
                     "Title"     : "Video",
                     "SubTitle"  : config.vid_format + " | " + config.domain_visual + config.vid_param_chk,
@@ -94,7 +101,7 @@ class media_downloader(FlowLauncher):
                     "Score"     : 250000,
                     "JsonRPCAction": {
                         "method"    : "run_downloader",
-                        "parameters": ["video_best"],
+                        "parameters": ["video_best", query],
                         "dontHideAfterAction": False
                     }
                 },
@@ -116,7 +123,7 @@ class media_downloader(FlowLauncher):
                     "Score"     : 50000,
                     "JsonRPCAction": {
                         "method"    : "run_downloader",
-                        "parameters": ["audio_best"],
+                        "parameters": ["audio_best", query],
                         "dontHideAfterAction": False
                     }
                 },
@@ -127,24 +134,28 @@ class media_downloader(FlowLauncher):
                     "Score"     : 0,
                     "JsonRPCAction": {
                         "method"    : "open_config",
-                        "parameters": [],
+                        "parameters": [query],
                         "dontHideAfterAction": True
                     }
                 }
             ]
-            return buttons
 
-    def run_downloader(self, param, custom_format):
-        run(param, custom_format)
+    def run_downloader(self, param, query):
+        run_m(param, query, config)
     
-    def install_components(self, *args):
+    def install_components(self, query, *args):
+        parse_args(query, config)
         try:
-            subprocess.Popen(['cmd.exe', '/k', f'python .\plugin\installer.py'],creationflags=subprocess.CREATE_NEW_CONSOLE)
+            Popen(['cmd.exe', '/k', f'python .\plugin\installer.py'],creationflags=CREATE_NEW_CONSOLE)
         except Exception as e:
             sys.exit(1)
     
-    def open_config(self):
-        os.startfile(".\plugin\config.json")
+    def open_config(self, query):
+        parse_args(query, config)
+        os.startfile(config.config_path)
+
+    def args(self, query):
+        parse_args(query, config)
 
 
 if __name__ == "__main__":
