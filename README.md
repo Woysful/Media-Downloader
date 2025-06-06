@@ -3,20 +3,30 @@ A plugin that allows you to download any (yt-dlp supported services) video/audio
 
 I'm not a good programmer and made this for myself. But maybe it'll come in handy for you
 
-![](https://github.com/user-attachments/assets/d0ba46bd-1b4f-44e0-8cf7-69cf368c57e8)
+![](https://github.com/user-attachments/assets/69a2cce5-21ba-421b-a641-8f4cd417f9b4)
 
 ## Features
 Basically this plugin creates for you 5 buttons:
 
-- **[ Video ]** - Downloading video with configurable yt-dlp/ffmpeg parameters and containers. These parameters can be changed in the `config.json`
+- **[ Video ]** - Downloading video with configurable yt-dlp/ffmpeg parameters and containers
 
 - **[ Video Best ]**  - Downloading video in best possible quality no matter what codec/container it uses
 
-- **[ Audio ]** - Downloading audio with configurable format. This parameter can be changed in `config.json`
+- **[ Audio ]** - Downloading audio with configurable format
 
 - **[ Audio Best ]** - Downloading audio in best possible quality and converting to `wav`
 
-- **[ Settings ]** - Opens config.json
+- **[ Domain Settings ]** - Opens config.json
+
+The program has two settings files:
+The first is a file with settings that the user specifies within Flow Launcher.
+These settings include: `download path`, `default video/audio formats`, `default download command`, and the ability to disable `notification sounds`.
+`Default format` settings and `download commands` are the settings that are used if the user has not specified individual settings for a particular domain.
+
+Individual settings are specified for each separate domain, if necessary. This can be done in the `config.json` file, which can be opened by selecting `Domain Settings`.
+The settings that can be used are described below in the **Config settings** section.
+
+In addition to these settings, the user can also enter the desired format in the query string. This works exclusively with the `Video` and `Audio` items.
 
 Also, you don't need to paste the link into the text field. Just copy the link and select the download mode. Plugin takes the link from the clipboard.
 
@@ -28,8 +38,6 @@ The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 ## Config settings
 To answer the first question: “why do I need to edit a text file instead of settings inside Flow Launcher?”.
 Because I have no idea how to create items list in FL UI plugin settings, I didn't find such an option in the documentation.
-And secondly because at the moment it is necessary to restart Flow Launcher to save settings. Also there is a bug, because of which settings from settings.json file are not loaded into FL UI.
-Among all the settings I've taken out only downloading path to UI, as it is usually the path is specified once and it's more convenient.
 
 ### How to use config
 To access the file, simply select Settings, which will open it in a text editor.
