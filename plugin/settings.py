@@ -4,95 +4,83 @@ from json       import load
 from pyperclip  import paste
 from tldextract import extract
 
-# getting config settings
-class cfg():
-    # config in plugin's folder that has most of the settings
-    config_path=".\plugin\config.json"
-    def load_config(config_path):
+class Cfg:
+    def __init__(self):
+        # settings path
+        self.config_path    = ".\\plugin\\config.json"
+        self.settings_path  = path.expandvars(r"%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json")
+
+        # ffmpeg and yt-dlp path
+        self.ffmpeg_path    = ".\\plugin\\ffmpeg.exe"
+        self.ytdlp_path     = ".\\plugin\\yt-dlp.exe"
+        
+        # load domain config and Flow Launcher settings
+        self.config_full    = self.load_json(self.config_path)
+        self.settings_full  = self.load_json(self.settings_path)
+
+        # getting user parameters from FL settings file
+        self.output_path    = path.join(self.settings_full.get("download_directory", "%USERPROFILE%\\Downloads"), "%(title)s.%(ext)s")
+        self.vid_format_def = self.settings_full.get("default_video_format", "mkv")
+        self.aud_format_def = self.settings_full.get("default_audio_format", "m4a")
+        self.vid_param_def  = self.settings_full.get("default_video_parameters", "bv+ba/best")
+        self.sound          = self.settings_full.get("download_complete_sound", True)
+        
+        # getting URL a setting pattern for validation
+        self.url            = paste().strip()
+        self.url_pattern    = compile(
+        r'((http[s]?://)?(www\.)?'
+        r'([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}'
+        r'(/[^\s]*)?)')
+
+        # getting domain name from URL and Domain settings from config.json
+        self.domain         = self.extract_domain(self.url)
+        self.domains_conf   = self.config_full.get("domains", {})
+
+        # covering doubles
+        self.domain_work = self.domain_edit(self.domain, {
+            "youtu": "youtube"
+        })
+
+        # covering good visual
+        self.domain_visual  = self.domain_edit(self.domain, {
+            "youtu"     : "YouTube",
+            "youtube"   : "Youtube",
+            "x"         : "Twitter",
+            "bsky"      : "Bluesky",
+            "tumblr"    : "Tumblr",
+            "instagram" : "Instagram",
+            "vimeo"     : "Vimeo",
+            "tiktok"    : "Tiktok"
+        })
+
+        # getting domain-individual settings from config.json
+        domain_param        = self.domains_conf.get(self.domain_work, {})
+        self.vid_format     = domain_param.get("video format", self.vid_format_def)
+        self.vid_param      = domain_param.get("yt-dlp parameters", self.vid_param_def)
+        self.aud_format     = domain_param.get("audio format", self.aud_format_def)
+        self.ff_param       = domain_param.get("postprocessor args", "")
+
+        # check if this parameter written for this domain. Made this for good visual on buttons
+        self.vid_param_chk  = self.param_check(domain_param)
+        self.aud_param_chk  = self.param_check(domain_param)
+    
+    # load settings
+    def load_json(self, path_):
         try:
-            with open(config_path, "r", encoding="utf-8") as f:
-                config = load(f)
-            return config
+            with open(path_, "r", encoding="utf-8") as f:
+                return load(f)
         except:
             return {}
 
-    # native flow launcher settings file
-    settings_path = path.expandvars(r'%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json')
-    def load_settings(settings_path):
-        try:
-            with open(settings_path, "r", encoding="utf-8") as f:
-                settings = load(f)
-            return settings
-        except:
-            return {}
-    
-    # getting and validating URL from clipboard
-    url = paste().strip()
-    url_pattern = compile(
-    r'((http[s]?://)?(www\.)?'
-    r'([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}'
-    r'(/[^\s]*)?)')
+    # get domain name
+    def extract_domain(self, url):
+        return extract(url).domain
 
-    # extracting domain from URL
-    def extract_domain(url) -> str:
-        extracted = extract(url)
-        domain = extracted.domain
-        return domain
-    
-    config_full     = load_config(config_path)
-    settings_full   = load_settings(settings_path)
-    
-    output_path     = path.join(settings_full.get("download_directory", "%USERPROFILE%\Downloads"), "%(title)s.%(ext)s")    
-    vid_format_def  = settings_full.get("default_video_format", "mkv")
-    aud_format_def  = settings_full.get("default_audio_format", "m4a")
-    vid_param_def   = settings_full.get("default_video_parameters", "bv+ba/best")
-    sound           = settings_full.get("download_complete_sound", True)
-    
-    domains_conf    = config_full.get("domains", {})
-    domain          = extract_domain(url)
-    
     # edits domain to separate a hand-fixed good visual domain name for buttons
     # and a working one that just covers double domains like youtu.be and youtube.com
-    def domain_edit(domain, rep):
-        if domain in rep:
-            return rep[domain]
-        else:
-            return domain
-    
-    domain_visual_rep = {
-    "youtu"     : "YouTube",
-    "youtube"   : "Youtube",
-    "x"         : "Twitter",
-    "bsky"      : "Bluesky",
-    "tumblr"    : "Tumblr",
-    "instagram" : "Instagram",
-    "vimeo"     : "Vimeo",
-    "tiktok"    : "Tiktok"
-    }
+    def domain_edit(self, domain, rep):
+        return rep.get(domain, domain)
 
-    domain_visual = domain_edit(domain, domain_visual_rep)
-
-    domain_work_rep = {
-    "youtu": "youtube"
-    }
-    domain_work = domain_edit(domain, domain_work_rep)
-
-    domain_param    = domains_conf.get(domain_work, {})
-
-    vid_format      = domain_param.get("video format", vid_format_def)
-    vid_param       = domain_param.get("yt-dlp parameters", vid_param_def)
-    aud_format      = domain_param.get("audio format", aud_format_def)
-    ff_param        = domain_param.get("postprocessor args", "")
-
-    # check if this parameter written for this domain. made this for good visual on buttons
-    def param_check(domain_param):
-        if not domain_param:
-            return " | Default settings"
-        else:
-            return ""
-        
-    vid_param_chk   = param_check(domain_param)
-    aud_param_chk   = param_check(domain_param)
-
-    ffmpeg_path     = '.\plugin\\ffmpeg.exe'
-    ytdlp_path      = '.\plugin\\yt-dlp.exe'
+    # check if this parameter written for this domain. Made this for good visual on buttons
+    def param_check(self, domain_param):
+        return "" if domain_param else " | Default settings"

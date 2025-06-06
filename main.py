@@ -6,14 +6,15 @@ sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
 from flowlauncher       import FlowLauncher
-from plugin.utils       import run_m, parse_args
-from plugin.settings    import cfg
+from plugin.utils       import run_d, parse_args
+from plugin.settings    import Cfg
 from subprocess         import Popen, CREATE_NEW_CONSOLE
 
-config = cfg()
+config = Cfg()
 
 class media_downloader(FlowLauncher):
     def query(self, query: str):
+        # check if ffmpeg and yt-dlp are installed
         if not (os.path.isfile(config.ytdlp_path) and os.path.isfile(config.ffmpeg_path)):
             return [
                 {
@@ -29,6 +30,7 @@ class media_downloader(FlowLauncher):
                 }
             ]            
         
+        # check if clipboard isn't empty
         elif not config.url:
             return [
                 {
@@ -55,6 +57,7 @@ class media_downloader(FlowLauncher):
                 }
             ]
         
+        # validate URL
         elif not config.url_pattern.match(config.url):
             return [
                 {
@@ -81,6 +84,7 @@ class media_downloader(FlowLauncher):
                 }
             ]
         
+        # main buttons
         else:
             return [
                 {
@@ -141,13 +145,13 @@ class media_downloader(FlowLauncher):
             ]
 
     def run_downloader(self, param, query):
-        run_m(param, query, config)
+        run_d(param, query, config)
     
     def install_components(self, query, *args):
         parse_args(query, config)
         try:
             Popen(['cmd.exe', '/k', f'python .\plugin\installer.py'],creationflags=CREATE_NEW_CONSOLE)
-        except Exception as e:
+        except:
             sys.exit(1)
     
     def open_config(self, query):

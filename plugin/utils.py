@@ -5,19 +5,19 @@ from sys        import exit
 from os         import startfile
 from re         import finditer
 from datetime   import datetime
-from settings   import cfg
+from settings   import Cfg
 
 # notification sound
-def sound_msg(status, config: cfg):
+def sound_msg(status, config: Cfg):
     if config.sound == True:
         match status:
             case True:        
                 PlaySound(r'.\sound\done.wav', SND_FILENAME)
             case False:
-                PlaySound(r'.\sound\warning.wav', SND_FILENAME)
+                PlaySound(r'.\sound\warning.wav', SND_FILENAME)                
 
 # parsing keys
-def parse_args(query, config: cfg):
+def parse_args(query, config: Cfg):
     pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
 
     args = {}
@@ -45,7 +45,7 @@ def parse_args(query, config: cfg):
                     sound_msg(False, config)
 
 # running the whole thing
-def run_m(param, query, config: cfg):
+def run_d(param, query, config: Cfg):
     if (not config.url) or (not config.url_pattern.match(config.url)):
         sound_msg(False, config)
     else:
