@@ -1,4 +1,4 @@
-import sys,os
+import sys,os, webbrowser
 
 parent_folder_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(parent_folder_path)
@@ -161,6 +161,89 @@ class media_downloader(FlowLauncher):
     def args(self, query):
         query_keys(query, config)
 
+    # context menu 
+    def context_menu(self, data):
+        return [
+            {
+                "Title"     : "HELP | Query arguments",
+                "SubTitle"  : "click to open in web",
+                "IcoPath"   : "Images\\warning.png",
+                "Score"     : 1100,
+                "JsonRPCAction": {
+                    "method"    : "open_url",
+                    "parameters": ["https://github.com/Woysful/Media-Downloader/blob/master/README.md#keys-and-temporal-parameters"],
+                    "dontHideAfterAction": True
+                }
+            },
+            {
+                "Title"     : "-f",
+                "SubTitle"  : "video/audio format | ex: -f mp4",
+                "IcoPath"   : "Images\\icon.png",
+                "Score"     : 1000
+            },
+            {
+                "Title"     : "-yt",
+                "SubTitle"  : "yt-dlp command | ex: -yt bv+ba/best",
+                "IcoPath"   : "Images\\icon.png",
+                "Score"     : 900
+            },
+            {
+                "Title"     : "-ff",
+                "SubTitle"  : "ffmpeg postprocessor args | ex: -ff '-c:v copy -c:a aac'",
+                "IcoPath"   : "Images\\icon.png",
+                "Score"     : 800
+            },
+            {
+                "Title"     : "-d",
+                "SubTitle"  : "open domain config file",
+                "IcoPath"   : "Images\\icon.png",
+                "Score"     : 700
+            },
+            {
+                "Title"     : "-s",
+                "SubTitle"  : "open flow launcher settings file",
+                "IcoPath"   : "Images\\icon.png",
+                "Score"     : 600
+            },
+            {
+                "Title"     : "HELP | Domain config",
+                "SubTitle"  : "click to open in web",
+                "IcoPath"   : "Images\\warning.png",
+                "Score"     : 500,
+                "JsonRPCAction": {
+                    "method"    : "open_url",
+                    "parameters": ["https://github.com/Woysful/Media-Downloader/blob/master/README.md#individual-settings"],
+                    "dontHideAfterAction": True
+                }
+            },
+            {
+                "Title"     : "yt-dlp parameters",
+                "SubTitle"  : "yt-dlp download parameters | ex: bv+ba/best",
+                "IcoPath"   : "Images\\config.png",
+                "Score"     : 400
+            },
+            {
+                "Title"     : "postprocessor args",
+                "SubTitle"  : "ffmpeg postprocessor args | ex: '-c:v copy -c:a aac'",
+                "IcoPath"   : "Images\\config.png",
+                "Score"     : 300
+            },
+            {
+                "Title"     : "video format",
+                "SubTitle"  : "Video stream container | ex: mkv",
+                "IcoPath"   : "Images\\config.png",
+                "Score"     : 200
+            },
+            {
+                "Title"     : "audio format",
+                "SubTitle"  : "Audio stream container | ex: m4a",
+                "IcoPath"   : "Images\\config.png",
+                "Score"     : 100
+            }
+        ]
+
+    def open_url(self, url):
+        webbrowser.open(url)
 
 if __name__ == "__main__":
     media_downloader()
