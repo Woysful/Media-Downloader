@@ -3,7 +3,7 @@ A plugin that allows you to download any (yt-dlp supported services) video/audio
 
 I'm not a good programmer and made this for myself. But maybe it'll come in handy for you
 
-![](https://github.com/user-attachments/assets/69a2cce5-21ba-421b-a641-8f4cd417f9b4)
+![](https://github.com/user-attachments/assets/46fde6e2-6898-48e6-9513-31f4e1629c1d)
 
 ## Features
 
