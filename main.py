@@ -57,7 +57,7 @@ class media_downloader(FlowLauncher):
                 }
             ]
         
-        # validate URL
+        # validating URL
         elif not config.url_pattern.match(config.url):
             return [
                 {

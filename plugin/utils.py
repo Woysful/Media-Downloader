@@ -1,5 +1,5 @@
 from shlex      import split
-from subprocess import run, CalledProcessError
+from subprocess import run
 from winsound   import PlaySound, SND_FILENAME
 from sys        import exit
 from os         import startfile
@@ -105,7 +105,7 @@ def run_d(param, query, config: Cfg):
                 run(command, check=True)
                 if config.sound == True:
                     sound_msg(True, config)
-        except CalledProcessError as e:
+        except:
             if config.sound == True:
                 sound_msg(False, config)
             exit(1)
