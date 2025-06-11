@@ -83,6 +83,7 @@ Keys can be used so that the user does not have to change the settings in text f
 |`-ff` | ffmpeg postprocessor arguments           | '-c:v libx265 -c:a aac '|
 |`-d`  | Opens Domain Settings file `config.json` |                         |
 |`-s`  | Opens User Settings file `settings.json` |                         |
+|`-log`| Opens Logs file                          |                         |
 
 User can find help list with all keys and domain parameters in context menu that can be found by pressing any of this:
 - `shift` + `enter`
