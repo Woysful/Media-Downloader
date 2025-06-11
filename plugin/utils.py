@@ -1,111 +1,96 @@
 from shlex      import split
-from subprocess import run
+from subprocess import run, CalledProcessError
 from winsound   import PlaySound, SND_FILENAME
 from sys        import exit
-from os         import startfile
-from re         import finditer
 from datetime   import datetime
 from settings   import Cfg
+from keys       import key_check, url_valid
+
+# logs for a few things
+def logs(config: Cfg, url: str, query: str, command: list) -> None:
+    with open(r".\plugin\logs.txt", "a", encoding="utf-8") as f:
+        f.write(
+            f"\nTime:\t\t{datetime.now():%d-%m-%Y %H:%M:%S}"
+            f"\nDomain:\t\t{config.domain}"
+            f"\nLink:\t\t{url}"
+            f"\nQuery:\t\t{query}"
+            f"\nCommand:\t{command}\n"
+        )
 
 # notification sound
 def sound_msg(status, config: Cfg):
-    if config.sound == True:
-        match status:
-            case True:        
-                PlaySound(r'.\sound\done.wav', SND_FILENAME)
-            case False:
-                PlaySound(r'.\sound\warning.wav', SND_FILENAME)                
+    if config.sound:
+        sound_file = r'.\sound\done.wav' if status else r'.\sound\warning.wav'
+        PlaySound(sound_file, SND_FILENAME)              
 
-# parsing keys from query field
-def query_keys(query, config: Cfg):
-    pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
-
-    args = {}
-    for match in finditer(pattern, query):
-        key = match.group(1)
-        value = match.group(2).strip() if match.group(2) else None
-        args[key] = value
-
-    if query.replace(" ", "") != "":
-        for key, value in args.items():
-            match key:
-                case 'f':
-                    config.vid_format = config.aud_format = args.get('f')
-                case 'yt':
-                    config.vid_param  = args.get('yt')
-                case 'ff':
-                    config.ff_param   = args.get('ff')
-                case 'd':
-                    startfile(config.config_path)
-                    exit(1)
-                case 's':
-                    startfile(config.settings_path)
-                    exit(1)
-                case _:
-                    sound_msg(False, config)
+# forming yt-dlp command based on button that user pressed
+def build_command(button_param: str, url: str, config: Cfg) -> list:
+    # if this request has postprocessor arguments
+    if config.ff_param:
+        return [
+            config.ytdlp_path,
+            '-f', config.vid_param,
+            '--merge-output-format', config.vid_format,
+            '--postprocessor-args', *split(config.ff_param),
+            '-o', config.output_path,
+            '--embed-metadata',
+            url
+        ]
+    match button_param:
+        case "video":
+            return [
+                config.ytdlp_path, url,
+                '-o', config.output_path,
+                '-f', config.vid_param,
+                '--merge-output-format', config.vid_format,
+                '--embed-metadata'
+            ]
+        case "video_best":
+            return [
+                config.ytdlp_path, url,
+                '-o', config.output_path,
+                '-f', 'bestvideo+bestaudio/best'
+            ]
+        case "audio":
+            return [
+                config.ytdlp_path, url,
+                '-o', config.output_path,
+                '-f', 'bestaudio',
+                '-x', '--audio-format', config.aud_format
+            ]
+        case "audio_best":
+            return [
+                config.ytdlp_path, url,
+                '-o', config.output_path,
+                '-f', 'bestaudio',
+                '-x', '--audio-format', 'wav'
+            ]
+        case _:
+            exit(1)
 
 # running the whole thing
-def run_d(param, query, config: Cfg):
-    if (not config.url) or (not config.url_pattern.match(config.url)):
+def run_d(button_param, query, config: Cfg):
+    if not url_valid()[0]:
         sound_msg(False, config)
+        exit(1)
     else:
-        query_keys(query, config)
+        # getting params from keys
+        keys, url = key_check(query)
+        if query.replace(" ", "") != "":
+            for key, value in keys.items():
+                match key:
+                    case 'f':
+                        config.vid_format = config.aud_format = keys.get("f", config.vid_format)
+                    case 'yt':
+                        config.vid_param = keys.get("yt", config.vid_param)
+                    case 'ff':
+                        config.ff_param = keys.get("ff", config.vid_param)
 
-        # forming yt-dlp command based on button that user pressed
-        match param:
-            case "video":
-                command = [config.ytdlp_path, config.url,
-                        '-o', config.output_path,
-                        '-f', config.vid_param,
-                        '--merge-output-format', config.vid_format,
-                        '--embed-metadata']
-            case "video_best":
-                command = [config.ytdlp_path, config.url, '-o', config.output_path,
-                        '-f', 'bestvideo+bestaudio/best']
-            case "audio":
-                command = [config.ytdlp_path, config.url, '-o', config.output_path,
-                        '-f', 'bestaudio',
-                        '-x', '--audio-format', config.aud_format]
-            case "audio_best":
-                command = [config.ytdlp_path, config.url, '-o', config.output_path,
-                        '-f', 'bestaudio',
-                        '-x', '--audio-format', 'wav']
-            case _:
-                exit(1)
-
-        # if this domain has postprocessor arguments in config
+        command = build_command(button_param, url, config)
+        logs(config, url, query, command)
         try:
-            if config.ff_param:
-                command = [config.ytdlp_path,
-                        '-f', config.vid_param,
-                        '--merge-output-format', config.vid_format,                       
-                        '--postprocessor-args'] + split(config.ff_param) + [
-                            '-o', config.output_path, 
-                            '--embed-metadata',
-                            config.url]
-
-                with open(".\plugin\logs.txt", "a", encoding="utf-8") as f:
-                    f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-                    f.write("\nDomain: " + config.domain)
-                    f.write("\nLink: " + config.url)
-                    f.write("\nQuery: " + query)
-                    f.write("\nCommand with args: " + str(command) + "\n")
-
-                run(command, check=True)
-                if config.sound == True:
-                    sound_msg(True, config)
-            else:
-                with open(".\plugin\logs.txt", "a", encoding="utf-8") as f:
-                    f.write("\nTime: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-                    f.write("\nDomain: " + config.domain)
-                    f.write("\nLink: " + config.url)
-                    f.write("\nQuery: " + query)
-                    f.write("\nCommand: " + str(command) + "\n")
-
-                run(command, check=True)
-                if config.sound == True:
-                    sound_msg(True, config)
-        except:
-            if config.sound == True:
-                sound_msg(False, config)
+            run(command, check=True)
+            sound_msg(True, config)
+        except CalledProcessError:
+            sound_msg(False, config)
             exit(1)
