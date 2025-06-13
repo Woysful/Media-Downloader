@@ -1,5 +1,5 @@
 # yt-dlp based Media Downloader [ Flow Launcher plugin ]
-A plugin that allows you to download any (yt-dlp supported services) video/audio files. (windows support only)
+A plugin that allows you to download any (yt-dlp supported services) video/audio files.
 
 I'm not a good programmer and made this for myself. But maybe it'll come in handy for you
 
@@ -19,7 +19,7 @@ I'm not a good programmer and made this for myself. But maybe it'll come in hand
 The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 
 ## Details and how to use
-### Main responds
+### Main responses
 Basically this plugin creates for you 5 buttons:
 
 - `Video` - Downloading video with configurable yt-dlp/ffmpeg parameters and containers
@@ -47,7 +47,7 @@ These settings include:
 `Default` are the settings that are used if the user _**has not**_ specified individual settings for a particular domain. This means that these are global settings for anything that is not uniquely customized.
 
 ### Individual Settings
-Individual settings are specified for each separate domain, if user wants to. This can be done in the `config.json` file, which can be opened by selecting `Domain Settings` respond, or using `-d` key in the query field.
+Individual settings are specified for each separate domain, if user wants to. This can be done in the `config.json` file, which can be opened by selecting `Domain Settings` respons, or using `-d` key in the query field.
 
 To answer the first question: “why do I need to edit a text file instead of settings inside Flow Launcher?”.
 Because I have no idea how to create items list in FL UI plugin settings.
@@ -83,10 +83,11 @@ Keys can be used so that the user does not have to change the settings in text f
 |`-ff` | ffmpeg postprocessor arguments           | '-c:v libx265 -c:a aac '|
 |`-d`  | Opens Domain Settings file `config.json` |                         |
 |`-s`  | Opens User Settings file `settings.json` |                         |
+|`-log`| Opens Logs file                          |                         |
 
 User can find help list with all keys and domain parameters in context menu that can be found by pressing any of this:
 - `shift` + `enter`
 - `right arrow key`
-- `right mouse button` on any respond
+- `right mouse button` on any respons
 
 Also user does not need to paste the link to his video/audio in the query field. It is enough to have it in the clipboard, from where the program will take the link for downloading.
