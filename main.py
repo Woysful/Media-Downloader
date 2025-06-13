@@ -7,9 +7,20 @@ sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
 from flowlauncher import FlowLauncher
 
-class BaseWithContextMenu:
+class ContextMenu:
     def context_menu(self, data):
         return [
+            {
+                "Title"     : "Domain Settings",
+                "SubTitle"  : "Open config.JSON",
+                "IcoPath"   : "Images\\config.png",
+                "Score"     : 10000,
+                "JsonRPCAction": {
+                    "method"    : "open_config",
+                    "parameters": [],
+                    "dontHideAfterAction": True
+                }
+            },
             {
                 "Title"     : "HELP | Query arguments",
                 "SubTitle"  : "click to open in web",
@@ -97,8 +108,11 @@ class BaseWithContextMenu:
     def open_url(self, help_url):
         from webbrowser import open
         open(help_url)
+        
+    def open_config(self):
+        os.startfile(r".\plugin\config.json")
 
-class Install(FlowLauncher, BaseWithContextMenu):
+class Install(FlowLauncher, ContextMenu):
     def query(self, query: str):
         return [
             {
@@ -114,7 +128,7 @@ class Install(FlowLauncher, BaseWithContextMenu):
         ]
     
     def context_menu(self, data):
-        return BaseWithContextMenu.context_menu(self, data)
+        return ContextMenu.context_menu(self, data)
 
     def install_components(self, query, *args):
         from subprocess import Popen, CalledProcessError, CREATE_NEW_CONSOLE
@@ -124,7 +138,7 @@ class Install(FlowLauncher, BaseWithContextMenu):
         except CalledProcessError:
             sys.exit(1)        
 
-class Bad_Url(FlowLauncher, BaseWithContextMenu):
+class Bad_Url(FlowLauncher, ContextMenu):
     def query(self, query: str):
         return [
             {
@@ -140,12 +154,12 @@ class Bad_Url(FlowLauncher, BaseWithContextMenu):
         ]
     
     def context_menu(self, data):
-        return BaseWithContextMenu.context_menu(self, data)
+        return ContextMenu.context_menu(self, data)
 
     def args(self, query):
         key_check(query)
 
-class Main(FlowLauncher, BaseWithContextMenu):
+class Main(FlowLauncher, ContextMenu):
     def query(self, query: str):
         return [
             {
@@ -191,30 +205,15 @@ class Main(FlowLauncher, BaseWithContextMenu):
                     "parameters": ["audio_best", query],
                     "dontHideAfterAction": False
                 }
-            },
-            {
-                "Title"     : "Domain Settings",
-                "SubTitle"  : "Open config.JSON",
-                "IcoPath"   : "Images\\config.png",
-                "Score"     : 0,
-                "JsonRPCAction": {
-                    "method"    : "open_config",
-                    "parameters": [query],
-                    "dontHideAfterAction": True
-                }
             }
         ]
     
     def context_menu(self, data):
-        return BaseWithContextMenu.context_menu(self, data)
+        return ContextMenu.context_menu(self, data)
 
     def run_downloader(self, button_param, query):
         from plugin.utils import run_d
         run_d(button_param, query, config)
-
-    def open_config(self, query):
-        key_check(query)
-        os.startfile(r".\plugin\config.json")
 
 if __name__ == "__main__":
     from plugin.keys import url_valid, key_check
