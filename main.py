@@ -5,7 +5,7 @@ sys.path.append(parent_folder_path)
 sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
-from flowlauncher import FlowLauncher
+from flowlauncher import FlowLauncher, FlowLauncherAPI
 
 class ContextMenu:
     def context_menu(self, data):
@@ -117,7 +117,7 @@ class Install(FlowLauncher, ContextMenu):
         return [
             {
                 "Title"     : "Press to install components",
-                "SubTitle"  : "Download ffmpeg and yt-dlp | it could take some time",
+                "SubTitle"  : "It could take a few minutes. Please wait",
                 "IcoPath"   : "Images\\warning.png",
                 "JsonRPCAction": {
                     "method"    : "install_components",
@@ -132,11 +132,16 @@ class Install(FlowLauncher, ContextMenu):
 
     def install_components(self, query, *args):
         from subprocess import Popen, CalledProcessError, CREATE_NEW_CONSOLE
+        from plugin.installer import install_ffmpeg, install_ytdlp
+        import asyncio
         key_check(query)
         try:
-            Popen(['cmd.exe', '/k', f'python .\plugin\installer.py'], creationflags=CREATE_NEW_CONSOLE)
+            yt = asyncio.run(install_ytdlp())
+            ff = asyncio.run(install_ffmpeg())
+            if yt and ff:
+                FlowLauncherAPI.show_msg(title="Components installed!", sub_title="You can continue to use the plugin")
         except CalledProcessError:
-            sys.exit(1)        
+            sys.exit(1)
 
 class Bad_Url(FlowLauncher, ContextMenu):
     def query(self, query: str):
