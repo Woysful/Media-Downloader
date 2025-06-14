@@ -131,7 +131,6 @@ class Install(FlowLauncher, ContextMenu):
         return ContextMenu.context_menu(self, data)
 
     def install_components(self, query, *args):
-        from subprocess import Popen, CalledProcessError, CREATE_NEW_CONSOLE
         from plugin.installer import install_ffmpeg, install_ytdlp
         import asyncio
         key_check(query)
@@ -140,7 +139,7 @@ class Install(FlowLauncher, ContextMenu):
             ff = asyncio.run(install_ffmpeg())
             if yt and ff:
                 FlowLauncherAPI.show_msg(title="Components installed!", sub_title="You can continue to use the plugin")
-        except CalledProcessError:
+        except:
             sys.exit(1)
 
 class Bad_Url(FlowLauncher, ContextMenu):
