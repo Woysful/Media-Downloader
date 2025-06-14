@@ -5,7 +5,7 @@ sys.path.append(parent_folder_path)
 sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 
-from flowlauncher import FlowLauncher, FlowLauncherAPI
+from flowlauncher import FlowLauncher
 
 class ContextMenu:
     def context_menu(self, data):
@@ -132,6 +132,7 @@ class Install(FlowLauncher, ContextMenu):
 
     def install_components(self, query, *args):
         from plugin.installer import install_ffmpeg, install_ytdlp
+        from flowlauncher import FlowLauncherAPI
         import asyncio
         key_check(query)
         try:
