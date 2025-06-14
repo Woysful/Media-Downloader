@@ -34,13 +34,3 @@ async def install_ytdlp():
         with open(ytdlp_path, 'wb') as f:
             f.write(response.content)
     return True
-
-# if __name__ == "__main__":
-#     print("\n\n")
-#     print("Downloading yt-dlp...")
-#     install_ytdlp()
-#     print("Downloading ffmpeg...")
-#     install_ffmpeg()
-#     print("\nComplete!")
-#     print("\nYou can now close this window and continue using the plugin")
-#     print("\nHave a great day :3")
