@@ -230,7 +230,6 @@ if __name__ == "__main__":
         if not valid:
             Bad_Url()
         else:
-            import cProfile
             from plugin.settings import Cfg
             config = Cfg(url)
             
