@@ -4,9 +4,12 @@ from urllib.parse   import urlparse
 
 class Cfg:
     def __init__(self, url):
+        current_dir = path.dirname(path.abspath(__file__))
+        root_dir = path.abspath(path.join(current_dir, "..", "..", ".."))
+
         # settings path
         self.config_path    = r".\plugin\config.json"
-        self.settings_path  = path.expandvars(r"%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json")
+        self.settings_path = path.join(root_dir, "Settings", "Plugins", "Media Downloader", "settings.json")
 
         # ffmpeg and yt-dlp path
         self.ffmpeg_path    = r".\plugin\ffmpeg.exe"
