@@ -217,8 +217,8 @@ class Main(FlowLauncher, ContextMenu):
         return ContextMenu.context_menu(self, data)
 
     def run_downloader(self, button_param, query):
-        from plugin.utils import run_d
-        run_d(button_param, query, config)
+        from plugin.utils import download
+        download(button_param, query, config)
 
 if __name__ == "__main__":
     from plugin.keys import url_valid, key_check
@@ -230,7 +230,7 @@ if __name__ == "__main__":
         if not valid:
             Bad_Url()
         else:
-            from plugin.settings import Cfg
-            config = Cfg(url)
+            from plugin.settings import Config
+            config = Config(url)
             
             Main()

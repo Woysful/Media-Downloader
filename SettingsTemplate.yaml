@@ -27,6 +27,12 @@ body:
       label: Sound notification
       description: Sound notify after downloading
       defaultValue: 'true'
+  - type: checkbox
+    attributes:
+      name: win_msg
+      label: Win message notification
+      description: Show Windows message notification after downloading
+      defaultValue: 'true'
   - type: textBlock
     attributes:
       description: Restart Flow Launcher to apply changes
