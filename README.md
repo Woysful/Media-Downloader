@@ -20,7 +20,7 @@ The usuall path to the plugin folder is: `%appdata%\FlowLauncher\Plugins\`
 
 ## Details and how to use
 ### Main responses
-Basically this plugin creates for you 5 buttons:
+Basically this plugin creates for you 4 buttons:
 
 - `Video` - Downloading video with configurable yt-dlp/ffmpeg parameters and containers
 
