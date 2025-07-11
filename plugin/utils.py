@@ -40,12 +40,12 @@ def win_msg(status, type, config: Config):
         )
 
 # forming yt-dlp command based on button that user pressed
-def build_command(button_param: str, url: str, config: Config) -> list:
+def build_command(button_param: str, url: str, vid_quality: str, config: Config) -> list:
     # if this request has postprocessor arguments
     if config.ff_param:
         return [
             config.ytdlp_path,
-            '-f', config.vid_param,
+            '-f', vid_quality + config.vid_param,
             '--merge-output-format', config.vid_format,
             '--postprocessor-args', *split(config.ff_param),
             '-o', config.output_path,
@@ -57,7 +57,7 @@ def build_command(button_param: str, url: str, config: Config) -> list:
             return [
                 config.ytdlp_path, url,
                 '-o', config.output_path,
-                '-f', config.vid_param,
+                '-f', vid_quality + config.vid_param,
                 '--merge-output-format', config.vid_format,
                 '--embed-metadata'
             ]
@@ -96,14 +96,18 @@ def download(button_param, query, config: Config):
         if query.replace(" ", "") != "":
             for key, value in keys.items():
                 match key:
-                    case 'f':
+                    case 'q' | 'Q' | 'quality' | 'Quality' | 'QUALITY':
+                        quality = keys.get("q", "")
+                        if quality != "":
+                            vid_quality = f"bv[height<={quality}]+(ba[ext={config.aud_format}]/ba[ext=m4a]/ba)/"
+                    case 'f' | 'F' | 'foramt' | 'Format' | 'FORMAT':
                         config.vid_format = config.aud_format = keys.get("f", config.vid_format)
-                    case 'yt':
+                    case 'yt' | 'YT' | 'ytdlp' | 'YTDLP' | 'yt-dlp parameters':
                         config.vid_param = keys.get("yt", config.vid_param)
-                    case 'ff':
+                    case 'ff' | 'FF' | 'ffmpeg' | 'FFmpeg' | 'FFMPEG':
                         config.ff_param = keys.get("ff", config.vid_param)
 
-        command = build_command(button_param, url, config)
+        command = build_command(button_param, url, vid_quality, config)
         logs(config, url, query, command)
         try:
             run(command, check=True)

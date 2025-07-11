@@ -26,15 +26,15 @@ def key_check(query):
     if query.replace(" ", "") != "":
         for key, value in args.items():
             match key:
-                case 'd':
+                case 'd' | 'D' | 'domain' | 'Domain' | 'DOMAIN':
                     startfile(r".\plugin\config.json")
                     exit(1)
-                case 's':
+                case 's' | 'S' | 'settings' | 'SETTINGS':
                     startfile(path.expandvars(r"%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json"))
                     exit(1)
-                case 'log':
+                case 'l' | 'log' | 'logs' | 'Log' | 'Logs' | 'LOG' | 'LOGS':
                     file_path = r".\plugin\logs.txt"
-                    if not path.exists(file_path):                        
+                    if not path.exists(file_path):
                         makedirs(path.dirname(file_path), exist_ok=True)
                         with open(file_path, 'w', encoding='utf-8') as f:
                             pass

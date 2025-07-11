@@ -7,6 +7,9 @@
     },
     "instagram" : {
       "postprocessor args"  : "'-c:v copy -c:a aac'"
+    },
+    "x": {
+      "video format"        : "mp4"
     }
   }
 }
