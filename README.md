@@ -30,8 +30,6 @@ Basically this plugin creates for you 5 buttons:
 
 - `Audio Best` - Downloading audio in best possible quality and converting to `wav`
 
-- `Domain Settings` - Opens config.json
-
 ### Global Settings
 This plugin has two settings files:
 The first is a file with settings that the user specifies within Flow Launcher.
