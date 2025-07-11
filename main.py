@@ -39,6 +39,12 @@ class ContextMenu:
                 "Score"     : 1000
             },
             {
+                "Title"     : "-q",
+                "SubTitle"  : "video quality | ex: -q 1080",
+                "IcoPath"   : "Images\\icon.png",
+                "Score"     : 950
+            },
+            {
                 "Title"     : "-yt",
                 "SubTitle"  : "yt-dlp command | ex: -yt bv+ba/best",
                 "IcoPath"   : "Images\\icon.png",
