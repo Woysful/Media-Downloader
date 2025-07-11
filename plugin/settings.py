@@ -57,6 +57,18 @@ class Config:
 
         self.vid_param_chk  = self.param_check(domain_param)
         self.aud_param_chk  = self.param_check(domain_param)
+
+        self.ui_quality     = ""
+        self.ui_format_v    = self.vid_format
+        self.ui_format_a    = self.aud_format
+        self.ui_ytdlp       = ""
+        self.ui_ffmpeg      = ""
+        self.ui_domain      = " | " + self.domain_visual
+
+        self.key_list_quality = ['q', 'Q', 'quality', 'Quality', 'QUALITY']
+        self.key_list_format  = ['f' , 'F' , 'format' , 'Format' , 'FORMAT']
+        self.key_list_ytdlp   = ['yt' , 'YT' , 'ytdlp' , 'YTDLP' , 'yt-dlp parameters']
+        self.key_list_ffmpeg  = ['ff' , 'FF' , 'ffmpeg' , 'FFmpeg' , 'FFMPEG']
     
     # loads settings from json file
     def load_json(self, path_):

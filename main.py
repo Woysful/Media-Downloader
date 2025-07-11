@@ -166,10 +166,17 @@ class Bad_Url(FlowLauncher, ContextMenu):
 
 class Main(FlowLauncher, ContextMenu):
     def query(self, query: str):
+        from plugin.keys import key_check_ui
+        key_check_ui(query, config)
         return [
             {
                 "Title"     : "Video",
-                "SubTitle"  : config.vid_format + " | " + config.domain_visual + config.vid_param_chk,
+                "SubTitle"  : config.ui_format_v
+                            + config.vid_param_chk
+                            + config.ui_quality
+                            + config.ui_ytdlp
+                            + config.ui_ffmpeg
+                            + config.ui_domain,
                 "IcoPath"   : "Images\\video.png",
                 "Score"     : 1000000,
                 "JsonRPCAction": {
@@ -191,7 +198,11 @@ class Main(FlowLauncher, ContextMenu):
             },
             {
                 "Title"     : "Audio",
-                "SubTitle"  : config.aud_format + " | " + config.domain_visual + config.aud_param_chk,
+                "SubTitle"  : config.ui_format_a
+                            + config.aud_param_chk
+                            + config.ui_ytdlp
+                            + config.ui_ffmpeg
+                            + config.ui_domain,
                 "IcoPath"   : "Images\\audio.png",
                 "Score"     : 750000,
                 "JsonRPCAction": {
@@ -212,7 +223,7 @@ class Main(FlowLauncher, ContextMenu):
                 }
             }
         ]
-    
+
     def context_menu(self, data):
         return ContextMenu.context_menu(self, data)
 
@@ -232,5 +243,5 @@ if __name__ == "__main__":
         else:
             from plugin.settings import Config
             config = Config(url)
-            
+
             Main()

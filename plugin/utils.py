@@ -96,16 +96,16 @@ def download(button_param, query, config: Config):
         if query.replace(" ", "") != "":
             for key, value in keys.items():
                 match key:
-                    case 'q' | 'Q' | 'quality' | 'Quality' | 'QUALITY':
-                        quality = keys.get("q", "")
+                    case _key if _key in config.key_list_quality:
+                        quality = keys.get(_key, "")
                         if quality != "":
                             vid_quality = f"bv[height<={quality}]+(ba[ext={config.aud_format}]/ba[ext=m4a]/ba)/"
-                    case 'f' | 'F' | 'foramt' | 'Format' | 'FORMAT':
-                        config.vid_format = config.aud_format = keys.get("f", config.vid_format)
-                    case 'yt' | 'YT' | 'ytdlp' | 'YTDLP' | 'yt-dlp parameters':
-                        config.vid_param = keys.get("yt", config.vid_param)
-                    case 'ff' | 'FF' | 'ffmpeg' | 'FFmpeg' | 'FFMPEG':
-                        config.ff_param = keys.get("ff", config.vid_param)
+                    case _key if _key in config.key_list_format:
+                        config.vid_format = config.aud_format = keys.get(_key, config.vid_format)
+                    case _key if _key in config.key_list_ytdlp:
+                        config.vid_param = keys.get(_key, config.vid_param)
+                    case _key if _key in config.key_list_ffmpeg:
+                        config.ff_param = keys.get(_key, config.vid_param)
 
         command = build_command(button_param, url, vid_quality, config)
         logs(config, url, query, command)
