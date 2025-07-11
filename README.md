@@ -3,7 +3,7 @@ A plugin that allows you to download any (yt-dlp supported services) video/audio
 
 I'm not a good programmer and made this for myself. But maybe it'll come in handy for you
 
-![](https://github.com/user-attachments/assets/46fde6e2-6898-48e6-9513-31f4e1629c1d)
+![](https://github.com/user-attachments/assets/ba93c674-8aa3-42c4-a770-bfb3d0cdeb20)
 
 ## Features
 
@@ -76,14 +76,15 @@ Using various keys, user can temporarily change the download settings.
 This is useful in situations where it is necessary to download a video/audio file in a format and with settings that do not match the global or individual settings.
 Keys can be used so that the user does not have to change the settings in text files just to download a single file.
 
-| key  | Description                              | Example                 |
-|:-----|:-----------------------------------------|:------------------------|
-|`-f`  | video/audio format                       | mp4                     |
-|`-yt` | yt-dlp parameters                        | bv+ba/best              |
-|`-ff` | ffmpeg postprocessor arguments           | '-c:v libx265 -c:a aac '|
-|`-d`  | Opens Domain Settings file `config.json` |                         |
-|`-s`  | Opens User Settings file `settings.json` |                         |
-|`-log`| Opens Logs file                          |                         |
+| key  | Description                              | Example                     |
+|:-----|:-----------------------------------------|:----------------------------|
+|`-f`  | video/audio format                       | -f mp4                      |
+|`-q`  | video quality ( based on height )        | -q 1080                     |
+|`-yt` | yt-dlp parameters                        | -yt bv+ba/best              |
+|`-ff` | ffmpeg postprocessor arguments           | -ff '-c:v libx265 -c:a aac '|
+|`-d`  | Opens Domain Settings file `config.json` |                             |
+|`-s`  | Opens User Settings file `settings.json` |                             |
+|`-log`| Opens Logs file                          |                             |
 
 User can find help list with all keys and domain parameters in context menu that can be found by pressing any of this:
 - `shift` + `enter`
