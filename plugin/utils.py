@@ -92,7 +92,8 @@ def download(button_param, query, config: Config):
         exit(1)
     else:
         # getting params from keys
-        keys, url = key_check(query)
+        keys, url   = key_check(query)
+        vid_quality = ""
         if query.replace(" ", "") != "":
             for key, value in keys.items():
                 match key:
