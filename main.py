@@ -13,7 +13,7 @@ class ContextMenu:
             {
                 "Title"     : "Domain Settings",
                 "SubTitle"  : "Open config.JSON",
-                "IcoPath"   : "Images\\config.png",
+                "IcoPath"   : "Images\\List.png",
                 "Score"     : 10000,
                 "JsonRPCAction": {
                     "method"    : "open_config",
@@ -22,10 +22,31 @@ class ContextMenu:
                 }
             },
             {
+                "Title"     : "User Settings",
+                "SubTitle"  : "This plugin settings.json file",
+                "IcoPath"   : "Images\\config.png",
+                "Score"     : 10000,
+                "JsonRPCAction": {
+                    "method"    : "open_settings",
+                    "parameters": [],
+                    "dontHideAfterAction": True
+                }
+            },
+            {
+                "Title"     : "Logs",
+                "IcoPath"   : "Images\\Logs.png",
+                "Score"     : 10000,
+                "JsonRPCAction": {
+                    "method"    : "open_logs",
+                    "parameters": [],
+                    "dontHideAfterAction": True
+                }
+            },
+            {
                 "Title"     : "HELP | Query arguments",
                 "SubTitle"  : "click to open in web",
                 "IcoPath"   : "Images\\warning.png",
-                "Score"     : 1100,
+                "Score"     : 500,
                 "JsonRPCAction": {
                     "method"    : "open_url",
                     "parameters": ["https://github.com/Woysful/Media-Downloader/blob/master/README.md#keys-and-temporal-parameters"],
@@ -36,49 +57,49 @@ class ContextMenu:
                 "Title"     : "-f",
                 "SubTitle"  : "video/audio format | ex: -f mp4",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 1000
+                "Score"     : 110
             },
             {
                 "Title"     : "-q",
                 "SubTitle"  : "video quality | ex: -q 1080",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 950
+                "Score"     : 100
             },
             {
                 "Title"     : "-yt",
                 "SubTitle"  : "yt-dlp command | ex: -yt bv+ba/best",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 900
+                "Score"     : 90
             },
             {
                 "Title"     : "-ff",
                 "SubTitle"  : "ffmpeg postprocessor args | ex: -ff '-c:v copy -c:a aac'",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 800
+                "Score"     : 80
             },
             {
                 "Title"     : "-d",
                 "SubTitle"  : "open domain config file",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 700
+                "Score"     : 70
             },
             {
                 "Title"     : "-s",
                 "SubTitle"  : "open flow launcher settings file",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 600
+                "Score"     : 60
             },
             {
                 "Title"     : "-log",
                 "SubTitle"  : "open logs file",
                 "IcoPath"   : "Images\\icon.png",
-                "Score"     : 500
+                "Score"     : 50
             },
             {
                 "Title"     : "HELP | Domain config",
                 "SubTitle"  : "click to open in web",
                 "IcoPath"   : "Images\\warning.png",
-                "Score"     : 400,
+                "Score"     : 40,
                 "JsonRPCAction": {
                     "method"    : "open_url",
                     "parameters": ["https://github.com/Woysful/Media-Downloader/blob/master/README.md#individual-settings"],
@@ -89,19 +110,19 @@ class ContextMenu:
                 "Title"     : "yt-dlp parameters",
                 "SubTitle"  : "yt-dlp download parameters | ex: bv+ba/best",
                 "IcoPath"   : "Images\\config.png",
-                "Score"     : 300
+                "Score"     : 30
             },
             {
                 "Title"     : "postprocessor args",
                 "SubTitle"  : "ffmpeg postprocessor args | ex: '-c:v copy -c:a aac'",
                 "IcoPath"   : "Images\\config.png",
-                "Score"     : 200
+                "Score"     : 20
             },
             {
                 "Title"     : "video format",
                 "SubTitle"  : "Video stream container | ex: mkv",
                 "IcoPath"   : "Images\\config.png",
-                "Score"     : 100
+                "Score"     : 10
             },
             {
                 "Title"     : "audio format",
@@ -117,6 +138,17 @@ class ContextMenu:
         
     def open_config(self):
         os.startfile(r".\plugin\config.json")
+
+    def open_settings(self):
+        os.startfile(os.path.expandvars(r"%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json"))
+
+    def open_logs(self):
+        file_path = r".\plugin\logs.txt"
+        if not os.path.exists(file_path):
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w', encoding='utf-8') as f:
+                pass
+        os.startfile(file_path)
 
 class ResponseInstall(FlowLauncher, ContextMenu):
     def query(self, query: str):
