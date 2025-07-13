@@ -28,6 +28,50 @@ def key_check_ui(query, config: Config):
         for key, value in keys.items():
             match key:
 
+                # open config file
+                case _key if _key in config.key_list_domain:
+                    return [
+                        {
+                            "Title"     : "Open Domain Config",
+                            "SubTitle"  : "Config.json",
+                            "IcoPath"   : "Images\\List.png",
+                            "JsonRPCAction": {
+                                "method"    : "check",
+                                "parameters": [query],
+                                "dontHideAfterAction": True
+                            }
+                        }
+                    ]
+
+                # open settings file
+                case _key if _key in config.key_list_settings: 
+                    return [
+                        {
+                            "Title"     : "Open Settings",
+                            "SubTitle"  : "Flow Launcher user settings",
+                            "IcoPath"   : "Images\\config.png",
+                            "JsonRPCAction": {
+                                "method"    : "check",
+                                "parameters": [query],
+                                "dontHideAfterAction": True
+                            }
+                        }
+                    ]
+
+                # open log file
+                case _key if _key in config.key_list_log: 
+                    return [
+                        {
+                            "Title"     : "Open log file",
+                            "IcoPath"   : "Images\\Logs.png",
+                            "JsonRPCAction": {
+                                "method"    : "check",
+                                "parameters": [query],
+                                "dontHideAfterAction": True
+                            }
+                        }
+                    ]
+
                 # format
                 case _key if _key in config.key_list_format:
                     if keys.get(_key): config.ui_format_v   = config.ui_format_a = keys.get(_key)
@@ -46,6 +90,7 @@ def key_check_ui(query, config: Config):
 
         config.vid_param_chk = ""
         config.aud_param_chk = ""
+    else: return False
 
 def key_check(query, config: Config):
     key_pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'

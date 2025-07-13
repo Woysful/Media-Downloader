@@ -118,8 +118,11 @@ class ContextMenu:
     def open_config(self):
         os.startfile(r".\plugin\config.json")
 
-class Response_Install(FlowLauncher, ContextMenu):
+class ResponseInstall(FlowLauncher, ContextMenu):
     def query(self, query: str):
+        key = key_check_ui(query, config)
+        if key:
+            return key
         return [
             {
                 "Title"     : "Press to install components",
@@ -149,8 +152,11 @@ class Response_Install(FlowLauncher, ContextMenu):
         except:
             sys.exit(1)
 
-class Response_Bad_Url(FlowLauncher, ContextMenu):
+class ResponseBadUrl(FlowLauncher, ContextMenu):
     def query(self, query: str):
+        key = key_check_ui(query, config)
+        if key:
+            return key
         return [
             {
                 "Title"     : "No link detected :c",
@@ -169,11 +175,15 @@ class Response_Bad_Url(FlowLauncher, ContextMenu):
 
     def args(self, query):
         key_check(query, config)
+    
+    def check(self, query):
+        key_check(query, config)
 
-class Response_Main(FlowLauncher, ContextMenu):
+class ResponseMain(FlowLauncher, ContextMenu):
     def query(self, query: str):
-        from plugin.keys import key_check_ui
-        key_check_ui(query, config)
+        key = key_check_ui(query, config)
+        if key:
+            return key
         return [
             {
                 "Title"     : "Video",
@@ -237,17 +247,19 @@ class Response_Main(FlowLauncher, ContextMenu):
         from plugin.utils import download
         download(button_param, query, config)
 
+    def check(self, query):
+        key_check(query, config)
+
 if __name__ == "__main__":
-    from plugin.keys import url_valid, key_check
+    from plugin.keys import url_valid, key_check, key_check_ui
 
     if not (os.path.isfile(r".\plugin\yt-dlp.exe") and os.path.isfile(r".\plugin\ffmpeg.exe")):
-        Response_Install()
+        ResponseInstall()
     else:
+        from plugin.settings import Config
         valid, url = url_valid()
+        config = Config(url)
         if not valid:
-            Response_Bad_Url()
+            ResponseBadUrl()
         else:
-            from plugin.settings import Config
-            config = Config(url)
-
-            Response_Main()
+            ResponseMain()
