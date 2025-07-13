@@ -30,19 +30,20 @@ def key_check_ui(query, config: Config):
 
                 # format
                 case _key if _key in config.key_list_format:
-                    if keys.get(_key): config.ui_format_v = config.ui_format_a = keys.get(_key)
+                    if keys.get(_key): config.ui_format_v   = config.ui_format_a = keys.get(_key)
 
                 # quality
                 case _key if _key in config.key_list_quality:
-                    if keys.get(_key): config.ui_quality = " | " + keys.get(_key) + "p"
+                    if keys.get(_key): config.ui_quality    = " | " + keys.get(_key) + "p"
 
                 # ytdlp parameters
                 case _key if _key in config.key_list_ytdlp:
-                    if keys.get(_key): config.ui_ytdlp = " | " + "+YT-DLP"
+                    if keys.get(_key): config.ui_ytdlp      = " | " + "+YT-DLP"
                 
                 # ffmpeg parameters
                 case _key if _key in config.key_list_ffmpeg:
-                    if keys.get(_key): config.ui_ffmpeg = " | " + "+FFmpeg"
+                    if keys.get(_key): config.ui_ffmpeg     = " | " + "+FFmpeg"
+
         config.vid_param_chk = ""
         config.aud_param_chk = ""
 
@@ -96,4 +97,5 @@ def key_check(query, config: Config):
                 # ffmpeg parameters
                 case _key if _key in config.key_list_ffmpeg: 
                     config.ff_param = keys.get(_key, config.vid_param)
+                    
     return vid_quality, url
