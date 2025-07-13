@@ -118,7 +118,7 @@ class ContextMenu:
     def open_config(self):
         os.startfile(r".\plugin\config.json")
 
-class Install(FlowLauncher, ContextMenu):
+class Response_Install(FlowLauncher, ContextMenu):
     def query(self, query: str):
         return [
             {
@@ -140,7 +140,7 @@ class Install(FlowLauncher, ContextMenu):
         from plugin.installer import install_ffmpeg, install_ytdlp
         from flowlauncher import FlowLauncherAPI
         import asyncio
-        key_check(query)
+        key_check(query, config)
         try:
             yt = asyncio.run(install_ytdlp())
             ff = asyncio.run(install_ffmpeg())
@@ -149,7 +149,7 @@ class Install(FlowLauncher, ContextMenu):
         except:
             sys.exit(1)
 
-class Bad_Url(FlowLauncher, ContextMenu):
+class Response_Bad_Url(FlowLauncher, ContextMenu):
     def query(self, query: str):
         return [
             {
@@ -168,9 +168,9 @@ class Bad_Url(FlowLauncher, ContextMenu):
         return ContextMenu.context_menu(self, data)
 
     def args(self, query):
-        key_check(query)
+        key_check(query, config)
 
-class Main(FlowLauncher, ContextMenu):
+class Response_Main(FlowLauncher, ContextMenu):
     def query(self, query: str):
         from plugin.keys import key_check_ui
         key_check_ui(query, config)
@@ -241,13 +241,13 @@ if __name__ == "__main__":
     from plugin.keys import url_valid, key_check
 
     if not (os.path.isfile(r".\plugin\yt-dlp.exe") and os.path.isfile(r".\plugin\ffmpeg.exe")):
-        Install()
+        Response_Install()
     else:
         valid, url = url_valid()
         if not valid:
-            Bad_Url()
+            Response_Bad_Url()
         else:
             from plugin.settings import Config
             config = Config(url)
 
-            Main()
+            Response_Main()

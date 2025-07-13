@@ -15,6 +15,7 @@ def url_valid():
         return False, url
     else:
         return True, url
+    
 def key_check_ui(query, config: Config):
     key_pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
     keys = {}
@@ -26,19 +27,26 @@ def key_check_ui(query, config: Config):
     if query.replace(" ", "") != "":
         for key, value in keys.items():
             match key:
+
+                # format
                 case _key if _key in config.key_list_format:
-                    if keys.get(_key):
-                        config.ui_format_v = config.ui_format_a = keys.get(_key)
+                    if keys.get(_key): config.ui_format_v = config.ui_format_a = keys.get(_key)
+
+                # quality
                 case _key if _key in config.key_list_quality:
                     if keys.get(_key): config.ui_quality = " | " + keys.get(_key) + "p"
+
+                # ytdlp parameters
                 case _key if _key in config.key_list_ytdlp:
-                    if keys.get(_key): config.ui_ytdlp = " | " + "YTDLP param"
+                    if keys.get(_key): config.ui_ytdlp = " | " + "+YT-DLP"
+                
+                # ffmpeg parameters
                 case _key if _key in config.key_list_ffmpeg:
-                    if keys.get(_key): config.ui_ffmpeg = " | " + "FFmpeg param"
+                    if keys.get(_key): config.ui_ffmpeg = " | " + "+FFmpeg"
         config.vid_param_chk = ""
         config.aud_param_chk = ""
 
-def key_check(query):
+def key_check(query, config: Config):
     key_pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
     keys = {}
     for match in finditer(key_pattern, query):
@@ -46,16 +54,23 @@ def key_check(query):
         value = match.group(2).strip() if match.group(2) else None
         keys[key] = value
 
+    vid_quality = ""
     if query.replace(" ", "") != "":
         for key, value in keys.items():
             match key:
-                case 'd' | 'D' | 'domain' | 'Domain' | 'DOMAIN':
+
+                # open config file
+                case _key if _key in config.key_list_domain:
                     startfile(r".\plugin\config.json")
                     exit(1)
-                case 's' | 'S' | 'settings' | 'SETTINGS':
+
+                # open settings file
+                case _key if _key in config.key_list_settings: 
                     startfile(path.expandvars(r"%APPDATA%\FlowLauncher\Settings\Plugins\Media Downloader\settings.json"))
                     exit(1)
-                case 'l' | 'log' | 'logs' | 'Log' | 'Logs' | 'LOG' | 'LOGS':
+
+                # open log file
+                case _key if _key in config.key_list_log: 
                     file_path = r".\plugin\logs.txt"
                     if not path.exists(file_path):
                         makedirs(path.dirname(file_path), exist_ok=True)
@@ -63,4 +78,22 @@ def key_check(query):
                             pass
                     startfile(file_path)
                     exit(1)
-    return keys, url
+
+                # quality
+                case _key if _key in config.key_list_quality: 
+                    quality = keys.get(_key, "")
+                    if quality != "":
+                        vid_quality = f"bv[height<={quality}]+(ba[ext={config.aud_format}]/ba[ext=m4a]/ba)/"
+                
+                # format
+                case _key if _key in config.key_list_format: 
+                    config.vid_format = config.aud_format = keys.get(_key, config.vid_format)
+                
+                # ytdlp parameters
+                case _key if _key in config.key_list_ytdlp: 
+                    config.vid_param = keys.get(_key, config.vid_param)
+                
+                # ffmpeg parameters
+                case _key if _key in config.key_list_ffmpeg: 
+                    config.ff_param = keys.get(_key, config.vid_param)
+    return vid_quality, url

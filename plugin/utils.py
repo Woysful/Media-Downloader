@@ -6,7 +6,6 @@ from datetime   import datetime
 from settings   import Config
 from keys       import key_check, url_valid
 
-# logs for a few things
 def logs(config: Config, url: str, query: str, command: list) -> None:
     with open(r".\plugin\logs.txt", "a", encoding="utf-8") as f:
         f.write(
@@ -17,13 +16,11 @@ def logs(config: Config, url: str, query: str, command: list) -> None:
             f"\nCommand:\t{command}\n"
         )
 
-# notification sound
 def sound_msg(status, config: Config):
     if config.sound:
         sound_file = r'.\sound\done.wav' if status else r'.\sound\warning.wav'
         PlaySound(sound_file, SND_FILENAME)
 
-# windows notification
 def win_msg(status, type, config: Config):
     if config.msg:
         match type:
@@ -91,22 +88,7 @@ def download(button_param, query, config: Config):
         win_msg(False, button_param, config)
         exit(1)
     else:
-        # getting params from keys
-        keys, url   = key_check(query)
-        vid_quality = ""
-        if query.replace(" ", "") != "":
-            for key, value in keys.items():
-                match key:
-                    case _key if _key in config.key_list_quality:
-                        quality = keys.get(_key, "")
-                        if quality != "":
-                            vid_quality = f"bv[height<={quality}]+(ba[ext={config.aud_format}]/ba[ext=m4a]/ba)/"
-                    case _key if _key in config.key_list_format:
-                        config.vid_format = config.aud_format = keys.get(_key, config.vid_format)
-                    case _key if _key in config.key_list_ytdlp:
-                        config.vid_param = keys.get(_key, config.vid_param)
-                    case _key if _key in config.key_list_ffmpeg:
-                        config.ff_param = keys.get(_key, config.vid_param)
+        vid_quality, url = key_check(query, config)
 
         command = build_command(button_param, url, vid_quality, config)
         logs(config, url, query, command)
