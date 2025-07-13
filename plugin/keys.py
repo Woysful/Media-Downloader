@@ -82,7 +82,7 @@ def key_check_ui(query, config: Config):
 
                 # ytdlp parameters
                 case _key if _key in config.key_list_ytdlp:
-                    if keys.get(_key): config.ui_ytdlp      = " | " + "+YT-DLP"
+                    if keys.get(_key): config.ui_ytdlp      = " | " + "+YT-dlp"
                 
                 # ffmpeg parameters
                 case _key if _key in config.key_list_ffmpeg:
@@ -93,11 +93,11 @@ def key_check_ui(query, config: Config):
     else: return False
 
 def key_check(query, config: Config):
-    key_pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
+    key_pattern = r'-(\w+)(?:\s+(?:"([^"]*)"|\'([^\']*)\'|([^-][^-]*)))?'
     keys = {}
     for match in finditer(key_pattern, query):
         key = match.group(1)
-        value = match.group(2).strip() if match.group(2) else None
+        value = next((g for g in match.groups()[1:] if g), None)
         keys[key] = value
 
     vid_quality = ""
@@ -129,18 +129,18 @@ def key_check(query, config: Config):
                 case _key if _key in config.key_list_quality: 
                     quality = keys.get(_key, "")
                     if quality != "":
-                        vid_quality = f"bv[height<={quality}]+(ba[ext={config.aud_format}]/ba[ext=m4a]/ba)/"
+                        vid_quality = f"bv[height<={quality}]+(ba[ext={config.aud_format}]/ba[ext=m4a]/ba)/".strip()
                 
                 # format
                 case _key if _key in config.key_list_format: 
-                    config.vid_format = config.aud_format = keys.get(_key, config.vid_format)
+                    config.vid_format = config.aud_format = keys.get(_key, config.vid_format).strip()
                 
                 # ytdlp parameters
                 case _key if _key in config.key_list_ytdlp: 
-                    config.vid_param = keys.get(_key, config.vid_param)
+                    config.vid_param = keys.get(_key, config.vid_param).strip()
                 
                 # ffmpeg parameters
                 case _key if _key in config.key_list_ffmpeg: 
-                    config.ff_param = keys.get(_key, config.vid_param)
+                    config.ff_param = "'" + keys.get(_key, config.vid_param) + "'"
                     
     return vid_quality, url
