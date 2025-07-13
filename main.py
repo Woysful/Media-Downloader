@@ -14,7 +14,7 @@ class ContextMenu:
                 "Title"     : "Domain Settings",
                 "SubTitle"  : "Open config.JSON",
                 "IcoPath"   : "Images\\List.png",
-                "Score"     : 10000,
+                "Score"     : 5000,
                 "JsonRPCAction": {
                     "method"    : "open_config",
                     "parameters": [],
@@ -25,7 +25,7 @@ class ContextMenu:
                 "Title"     : "User Settings",
                 "SubTitle"  : "This plugin settings.json file",
                 "IcoPath"   : "Images\\config.png",
-                "Score"     : 10000,
+                "Score"     : 3000,
                 "JsonRPCAction": {
                     "method"    : "open_settings",
                     "parameters": [],
@@ -35,7 +35,7 @@ class ContextMenu:
             {
                 "Title"     : "Logs",
                 "IcoPath"   : "Images\\Logs.png",
-                "Score"     : 10000,
+                "Score"     : 1500,
                 "JsonRPCAction": {
                     "method"    : "open_logs",
                     "parameters": [],
