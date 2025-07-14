@@ -8,8 +8,10 @@ class Config:
         root_dir    = path.abspath(path.join(current_dir, "..", "..", ".."))
 
         # settings files path
-        self.config_path    = r".\plugin\config.json" # List of domains and their settings
-        self.settings_path  = path.join(root_dir, "Settings", "Plugins", "Media Downloader", "settings.json") # User settings
+             # list of domains and their settings
+        self.config_path    = r".\plugin\config.json"
+            # Flow Launcher plugin user settings
+        self.settings_path  = path.join(root_dir, "Settings", "Plugins", "Media Downloader", "settings.json")
 
         self.ffmpeg_path    = r".\plugin\ffmpeg.exe"
         self.ytdlp_path     = r".\plugin\yt-dlp.exe"
@@ -90,6 +92,6 @@ class Config:
             netloc = netloc[4:]
         return netloc.split('.')[0]
 
-    # checks if there are individual settings for the domain. Used in the user interface
+    # checks if there are any individual settings for the domain. Used in the user interface
     def param_check(self, domain_param):
         return "" if domain_param else " | Default settings"

@@ -16,6 +16,7 @@ def url_valid():
     else:
         return True, url
     
+# This one is using on each query update. For example when user types in the search box
 def key_check_ui(query, config: Config):
     key_pattern = r'-(\w+)(?:\s+([^-\s][^-]*))?'
     keys = {}
@@ -92,6 +93,7 @@ def key_check_ui(query, config: Config):
         config.aud_param_chk = ""
     else: return False
 
+# This one is using on button press
 def key_check(query, config: Config):
     key_pattern = r'-(\w+)(?:\s+(?:"([^"]*)"|\'([^\']*)\'|([^-][^-]*)))?'
     keys = {}
