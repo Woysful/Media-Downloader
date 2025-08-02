@@ -284,13 +284,13 @@ class ResponseMain(FlowLauncher, ContextMenu):
 
 if __name__ == "__main__":
     from plugin.keys import url_valid, key_check, key_check_ui
+    from plugin.settings import Config
+    valid, url = url_valid()
+    config = Config(url)
 
     if not (os.path.isfile(r".\plugin\yt-dlp.exe") and os.path.isfile(r".\plugin\ffmpeg.exe")):
         ResponseInstall()
     else:
-        from plugin.settings import Config
-        valid, url = url_valid()
-        config = Config(url)
         if not valid:
             ResponseBadUrl()
         else:
