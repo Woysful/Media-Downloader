@@ -34,6 +34,7 @@ class ContextMenu:
             },
             {
                 "Title"     : "Update ffmpeg",
+                "SubTitle"  : "It could take a few minutes. Please wait",
                 "IcoPath"   : "Images\\ffmpeg.png",
                 "Score"     : 2500,
                 "JsonRPCAction": {
@@ -44,6 +45,7 @@ class ContextMenu:
             },
             {
                 "Title"     : "Update yt-dlp",
+                "SubTitle"  : "It could take a few minutes. Please wait",
                 "IcoPath"   : "Images\\ytdlp.png",
                 "Score"     : 2000,
                 "JsonRPCAction": {
