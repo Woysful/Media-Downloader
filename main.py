@@ -33,6 +33,26 @@ class ContextMenu:
                 }
             },
             {
+                "Title"     : "Update ffmpeg",
+                "IcoPath"   : "Images\\ffmpeg.png",
+                "Score"     : 2500,
+                "JsonRPCAction": {
+                    "method"    : "upd",
+                    "parameters": ["ffmpeg"],
+                    "dontHideAfterAction": True
+                }
+            },
+            {
+                "Title"     : "Update yt-dlp",
+                "IcoPath"   : "Images\\ytdlp.png",
+                "Score"     : 2000,
+                "JsonRPCAction": {
+                    "method"    : "upd",
+                    "parameters": ["ytdlp"],
+                    "dontHideAfterAction": True
+                }
+            },
+            {
                 "Title"     : "Logs",
                 "IcoPath"   : "Images\\Logs.png",
                 "Score"     : 1500,
@@ -150,6 +170,15 @@ class ContextMenu:
                 pass
         os.startfile(file_path)
 
+    def upd(self, arg):
+        import asyncio
+        try:
+            upd = asyncio.run(update(arg))
+            if upd:
+                FlowLauncherAPI.show_msg(title=f"{arg} updated!", sub_title="Now you can use the plugin")
+        except:
+            sys.exit(1)
+
 class ResponseInstall(FlowLauncher, ContextMenu):
     def query(self, query: str):
         key = key_check_ui(query, config)
@@ -172,15 +201,13 @@ class ResponseInstall(FlowLauncher, ContextMenu):
         return ContextMenu.context_menu(self, data)
 
     def install_components(self, query, *args):
-        from plugin.installer import install_ffmpeg, install_ytdlp
-        from flowlauncher import FlowLauncherAPI
         import asyncio
         key_check(query, config)
         try:
             yt = asyncio.run(install_ytdlp())
             ff = asyncio.run(install_ffmpeg())
             if yt and ff:
-                FlowLauncherAPI.show_msg(title="Components installed!", sub_title="You can continue to use the plugin")
+                FlowLauncherAPI.show_msg(title="Components installed!", sub_title="Now you can use the plugin")
         except:
             sys.exit(1)
 
@@ -283,6 +310,8 @@ class ResponseMain(FlowLauncher, ContextMenu):
         key_check(query, config)
 
 if __name__ == "__main__":
+    from flowlauncher import FlowLauncherAPI
+    from plugin.installer import install_ffmpeg, install_ytdlp, update
     from plugin.keys import url_valid, key_check, key_check_ui
     from plugin.settings import Config
     valid, url = url_valid()

@@ -34,3 +34,18 @@ async def install_ytdlp():
         with open(ytdlp_path, 'wb') as f:
             f.write(response.content)
     return True
+
+async def update(arg):
+    try:
+        if arg == "ffmpeg":
+            if os.path.isfile(ffmpeg_path):
+                os.remove(ffmpeg_path)
+            await install_ffmpeg()
+            return True
+        elif arg == "ytdlp":
+            if os.path.isfile(ytdlp_path):
+                os.remove(ytdlp_path)
+            await install_ytdlp()
+            return True
+    except Exception:
+        return False
